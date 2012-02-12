@@ -1,100 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>NN.blog.last()</title>
-  <meta name="author" content="Nicolas Nombela">
-
-  
-  <meta name="description" content="JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
-sentido de seguir un único &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://nnombela.github.com">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="NN.blog.last()" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">NN.blog.last()</a></h1>
-  
-    <h2>// Mainly about programming stuff also anything may catch my interest.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:nnombela.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
+  <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2012-02-12T20:51:27+01:00</updated>
+  <id>http://nnombela.github.com/</id>
+  <author>
+    <name><![CDATA[Nicolas Nombela]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto De OOP Tiene Javascript?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2012-02-12T14:44:00+01:00" pubdate data-updated="true">Feb 12<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
+  <entry>
+    <title type="html"><![CDATA[¿Cuánto de OOP tiene Javascript?]]></title>
+    <link href="http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
+    <updated>2012-02-12T14:44:00+01:00</updated>
+    <id>http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
+    <content type="html"><![CDATA[<p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
 sentido de seguir un único paradigma de programación. Ciertamente JS es una mezcla de muchas cosas, aunque la raíz es
 para mi es, sin duda, la programación funcional (FP), tomando como base este paradigma su creador tomo prestados
 conceptos y estilos de programación de otros lenguajes.</p>
@@ -104,16 +28,16 @@ la sintaxis C-like común en muchos lenguajes imperativos (incluído Java), quiz
 lenguaje. En cualquier caso, en JS es habitual ver ambos estilos mezclados. Siguiendo con esta extraña mezcla
 decidió, cómo no, añadir características de programación orientada a objectos (OOP en inglés) que tan de moda estaba
 en aquellos tiempos y añadió dos conceptos básicos de OOP: La definición de objeto y la herencia, y no mucho
-más&#8230; y además JS lo hace de un modo muy particular, veamos cómo:</p>
+más... y además JS lo hace de un modo muy particular, veamos cómo:</p>
 
 <ol>
 <li><p><strong>Definición de objeto.</strong> <em>En JS se define un objeto como una agrupación desestructurada de propiedades/valor, nada más, un
 mapa de propiedades para entendernos. Es una definición extremadamente simple y es más una estructura de datos que un
 concepto OOP riguroso. No hay encapsulación. Algunos de estas propiedades serán funciones que son asignadas al objeto
-dinámicamente y éstas funciones pueden usarse como métodos del objeto, en este caso la función recibe un argumento implícito &#8220;this&#8221;
+dinámicamente y éstas funciones pueden usarse como métodos del objeto, en este caso la función recibe un argumento implícito "this"
 cuyo valor es el objeto al que pertenece la función. Los objetos son creados utilizando, cómo no, una función constructora (que también es un objeto).</em></p></li>
 <li><p><strong>Herencia prototípica.</strong> <em>La herencia se consigue utilizando prototipos, que no son más que objetos (gran acierto)
-cuyas propiedades son compartidas por una &#8220;familia&#8221; de objetos creados utilizando la misma función constructora
+cuyas propiedades son compartidas por una "familia" de objetos creados utilizando la misma función constructora
 (otro objeto). El prototipo de un objeto no es más que una de sus propiedades (no enumerable), que además puede ser
 modificada posteriormente. A su vez los prototipos, como objetos que son, tienen su propio prototipo dando lugar a lo
 que se denomina cadena prototípica.</em></p></li>
@@ -123,17 +47,17 @@ que se denomina cadena prototípica.</em></p></li>
 <p>En JavaScript las funciones son objetos y toda la semántica OOP gira entorno al concepto de objeto y al de función como objeto.
 Es en esta mezcla tan acertada y equitativa entre los conceptos función y objeto, donde está la magia de JavaScript, al menos en mi
 opinión. Otros lenguajes más OOP puros subordinan el concepto de función al de método del objeto, quedando así su
-importancia relegada y mal aprovechada&#8230; pero esto ya va más sobre gustos que otra cosa.</p>
+importancia relegada y mal aprovechada... pero esto ya va más sobre gustos que otra cosa.</p>
 
 <p>Sin entrar en mucho más detalle, no pretendo que de la explicación anterior quede claro cómo hacer herencia OOP en JS
 pero sí la idea de que su implementación en el lenguaje está hecha de una forma muy simple, bastante flexible y en mi
 opinión (muy discutible) de una forma elegante, aunque, el creador de JS descuidó, y mucho, los detalles (quizás por
-las prisas), y ya se sabe que las prisas son malas y que en los detalles se esconde el diablo&#8230;</p>
+las prisas), y ya se sabe que las prisas son malas y que en los detalles se esconde el diablo...</p>
 
 <p>Esta simplicidad y flexibilidad de los conceptos OOP es uno de los grandes aciertos de JS pero también una de sus
-desventajas, ya que no resulta nada obvio cómo programar siguiendo un estilo OOP en JavaScript&#8230; pero en parte también
+desventajas, ya que no resulta nada obvio cómo programar siguiendo un estilo OOP en JavaScript... pero en parte también
 esto puede ser una ventaja ya que OOP puede no ser la forma más adecuada para resolver el problema. OOP no es un
-estilo imperativo en JS, es una opción, casi un patrón de diseño más&#8230; y la dificultad de uso es una forma del
+estilo imperativo en JS, es una opción, casi un patrón de diseño más... y la dificultad de uso es una forma del
 lenguaje, un tanto sutil, de decirle al programador que si no tiene claro como hacerlo es por que, probablemente ¡No
 lo necesita! Y en muchas ocasiones esto es cierto.</p>
 
@@ -141,7 +65,7 @@ lo necesita! Y en muchas ocasiones esto es cierto.</p>
 
 <h3>A) Al modo funcional:   <em>Un par de funciones extend() y inherits().</em></h3>
 
-<div><script src='https://gist.github.com/1768497.js?file='></script>
+<p><div><script src='https://gist.github.com/1768497.js?file='></script>
 <noscript><pre><code>function extend(dest, source) {
     for (var prop in source) {   // enumerable properties
         dest[prop] = source[prop];
@@ -162,7 +86,7 @@ function inherits(Parent, props) {
 
     return Child;
 }</code></pre></noscript></div>
-
+</p>
 
 <p><strong>Para el 80% de los casos</strong>, extender (extend) un objeto utilizando otro objeto, es probablemente la forma más fácil y en
 muchas ocasiones la más acertada de tener “herencia” sin hacer herencia, también se denomina “mezclar con” (mixin) o
@@ -171,7 +95,7 @@ aumentar (augment) un objeto con otro objeto, está será nuestra primera opció
 <p><strong>Para el 20% de los restantes casos</strong>, si pensándolo bien finalmente decidimos que lo que queremos es herencia pura y dura,
 utilizando la función anterior lo haríamos así:</p>
 
-<div><script src='https://gist.github.com/1789034.js?file='></script>
+<p><div><script src='https://gist.github.com/1789034.js?file='></script>
 <noscript><pre><code>var Point = inherits(Object, {
     constructor: function(x, y) {
         this.x = x;
@@ -204,7 +128,7 @@ var cp = new ColorPoint(1, 2, &quot;yellow&quot;);
 
 console.log(p.desc + &quot;: &quot; + p.toString());
 console.log(cp.desc + &quot;: &quot; + cp.toString());</code></pre></noscript></div>
-
+</p>
 
 <p>Lo que me gusta de esta sintaxis es que es muy limpia e intuitiva, se ve claramente lo que estás haciendo y ves al
 mismo tiempo y de forma agrupada la función constructora, las propiedades compartidas y los métodos.</p>
@@ -232,7 +156,7 @@ el método <code>extend()</code> para herencia y el método <code>augment()</cod
 pero la terminologías FP y la OOP se solapan y tienen estas cosas, lo siento). El código además se presenta como una
 librería modularizada (soporte CommonJS)</p>
 
-<div><script src='https://gist.github.com/1768435.js?file='></script>
+<p><div><script src='https://gist.github.com/1768435.js?file='></script>
 <noscript><pre><code>var OOP = (function() {
 
     var SLICE = Array.prototype.slice;
@@ -287,11 +211,11 @@ librería modularizada (soporte CommonJS)</p>
 if (typeof exports !== 'undefined') { // CommonJS module support
     exports = OOP;
 }</code></pre></noscript></div>
-
+</p>
 
 <p>Como ejemplo de uso de la librería anterior tenemos.</p>
 
-<div><script src='https://gist.github.com/1792721.js?file='></script>
+<p><div><script src='https://gist.github.com/1792721.js?file='></script>
 <noscript><pre><code>var OOP = require('./OOP.js');
 
 var Point = OOP.extend({
@@ -330,7 +254,7 @@ console.log(p.desc + &quot;: &quot; + p.toString());
 console.log(cp.desc + &quot;: &quot; + cp.toString());
 
 setTimeout(cp.method('printLog'), 1000);</code></pre></noscript></div>
-
+</p>
 
 <p>El ejemplo es parecido al anterior en A) pero en vez de funciones utilizamos métodos y además he añadido una forma un
 poco más amigable de poder llamar a los metodos de la “clase padre” (prototipo de la función constructora), de manera
@@ -348,7 +272,7 @@ que en vez de</p>
 
 <p>Esta segunda posibilidad aunque más intuitiva y sencilla tiene un inconveniente importante, las funciones método sólo
 podrán ser utilizadas ligándolas a objetos del
-&#8220;mismo tipo&#8221; (mismo prototipo) al objeto al que pertenecen, es decir no podrán utilizarse como funciones desligadas
+"mismo tipo" (mismo prototipo) al objeto al que pertenecen, es decir no podrán utilizarse como funciones desligadas
 con objetos que en su prototipo no tengan la función <code>parent()</code> con la misma semántica</p>
 
 <p>Para facilitar la operación de ligar una funcion con el objeto al que pertenece he includo un método no enumerado
@@ -363,174 +287,12 @@ o abuso de este recurso ya que la herencia es la decisión que más rigidez y di
 (si eres de los que ha utilizado herencia con profusión en un modelo de datos sabrás de lo que estoy
 hablando). Java se intentó proteger de este abuso no permitiendo la herencia múltiple y favoreciendo más el uso de
 interfaces, aún con todo incluso en las librerías estándar, especialmente en las más antiguas, es fácil ver este
-problema. Ver <a href="http://asserttrue.blogspot.com/2009/02/inheritance-as-antipattern.html">Inheritance as antipattern</a>, asi que&#8230; <br/>
+problema. Ver <a href="http://asserttrue.blogspot.com/2009/02/inheritance-as-antipattern.html">Inheritance as antipattern</a>, asi que... <br/>
 <strong>Use it at your own risk!</strong></p></blockquote>
 
-<p>JavaScript es un lenguaje muy incomprendido&#8230; espero que este post os haya servido para entenderlo un poco mejor o
+<p>JavaScript es un lenguaje muy incomprendido... espero que este post os haya servido para entenderlo un poco mejor o
 al menos haber despertado vuestro interés. Intentaré seguir en ello.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/11/sobre-este-blog/">Sobre Este Blog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-11T19:10:00+01:00" pubdate data-updated="true">Feb 11<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>¿Por qué <a href="http://octopress.org/">Octopress</a>?</h2>
-
-<p>Varias razones</p>
-
-<ul>
-<li>Puede alojarse en <a href="http://github.com">github</a> gratuítamente y la cargas de páginas es muy rápida.</li>
-<li>Como ventaja añadida esta todo el blog está versionado y alojado en github.</li>
-<li>El diseño por defecto es muy simple, limpio y fácilmente modificable.</li>
-<li>Es un blog de programadores para programadores y se nota.</li>
-<li>Se integra con github gist (trozos de código) estupendamente.</li>
-<li>Es posible trabajar offline, viendo rápidamente los cambios y puedo escribir con mi IDE favorito</li>
-<li>Está hecho en Ruby, es fácil de utilizar.</li>
-<li>Utiliza un lenguaje de marcado <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> en vez d</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto de OOP tiene Javascript?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/11/sobre-este-blog/">Sobre este blog</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("nnombela", 2, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/nnombela" class="twitter-follow-button" data-show-count="false">Follow @nnombela</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Nicolas Nombela -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'nnombela';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
