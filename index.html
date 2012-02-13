@@ -127,12 +127,12 @@ importancia relegada y mal aprovechada&#8230; pero esto ya va más sobre gustos 
 
 <p>Sin entrar en mucho más detalle, no pretendo que de la explicación anterior quede claro cómo hacer herencia OOP en JS
 pero sí la idea de que su implementación en el lenguaje está hecha de una forma muy simple, bastante flexible y en mi
-opinión (muy discutible) de una forma elegante, aunque, el creador de JS descuidó, y mucho, los detalles (quizás por
+opinión (muy discutible) de una forma elegante y coherente, aunque el creador de JS descuidó, y mucho, los detalles (quizás por
 las prisas), y ya se sabe que las prisas son malas y que en los detalles se esconde el diablo&#8230;</p>
 
 <p>Esta simplicidad y flexibilidad de los conceptos OOP es uno de los grandes aciertos de JS pero también una de sus
 desventajas, ya que no resulta nada obvio cómo programar siguiendo un estilo OOP en JavaScript&#8230; pero en parte también
-esto puede ser una ventaja ya que OOP puede no ser la forma más adecuada para resolver el problema. OOP no es un
+esto puede ser una ventaja ya que OOP puede no ser la forma más adecuada para resolver un problema de programación. OOP no es un
 estilo imperativo en JS, es una opción, casi un patrón de diseño más&#8230; y la dificultad de uso es una forma del
 lenguaje, un tanto sutil, de decirle al programador que si no tiene claro como hacerlo es por que, probablemente ¡No
 lo necesita! Y en muchas ocasiones esto es cierto.</p>
@@ -212,12 +212,19 @@ mismo tiempo y de forma agrupada la función constructora, las propiedades compa
 <p>Especial atención a cómo se accede a los métodos y propiedades de la “clase padre” desde la “clase hija” .</p>
 
 <pre><code>    Child.parent.prototype.property;
-    Child.parent.prototype.function.call(this, args..);
+    Child.parent.prototype.functionName.call(this, args..);
 </code></pre>
 
-<p>Se añade la propiedad (no enumerable) <code>parent</code> a la función constructora de manera que no es necesario al menos hacer
-referencia explícita, de cualquier forma la sintaxis es (discutiblemente) engorrosa, en la siguiente sección veremos
-una posible alternativa más sencilla y un poco más OOP (pero con inconvenientes que explicaré).</p>
+<p>Podríamos haber utilizado perfectamente (y quizás más correctamente) una versión más corta</p>
+
+<pre><code>    Parent.prototype.property;
+    Parent.prototype.functionName.call(this, args..);
+</code></pre>
+
+<p>Pero he preferido utilizar la propiedad añadida (no enumerable) <code>parent</code> de la función constructora por que es habitual
+añadir los métodos posteriormente, una vez hecha la definición, y en estos casos es conveniente no tener que recordar y hacer mención
+explicita a la función padre,  de cualquier forma la sintaxis es (discutiblemente) engorrosa, en la siguiente sección veremos una posible alternativa
+más sencilla y un poco más OOP (pero con inconvenientes que explicaré).</p>
 
 <hr />
 
@@ -229,8 +236,8 @@ una posible alternativa más sencilla y un poco más OOP (pero con inconveniente
 <p>Esta opción es una evolución de la anterior pero con un enfoque más orientado a objectos, en vez de utilizar funciones
 haremos que las las funciones constructoras extiendan de un objeto padre (OOP) que tiene como métodos
 el método <code>extend()</code> para herencia y el método <code>augment()</code> para extender (ya se que el cruce de nombres es un poco confuso
-pero la terminologías FP y la OOP se solapan y tienen estas cosas, lo siento). El código además se presenta como una
-librería modularizada (soporte CommonJS)</p>
+pero las terminologías FP y la OOP se solapan y tienen estas cosas, lo siento). El código además se presenta como una
+librería modularizada (con soporte CommonJS)</p>
 
 <div><script src='https://gist.github.com/1768435.js?file='></script>
 <noscript><pre><code>var OOP = (function() {
@@ -332,7 +339,7 @@ console.log(cp.desc + &quot;: &quot; + cp.toString());
 setTimeout(cp.method('printLog'), 1000);</code></pre></noscript></div>
 
 
-<p>El ejemplo es parecido al anterior en A) pero en vez de funciones utilizamos métodos y además he añadido una forma un
+<p>El ejemplo es parecido al anterior en A) pero en vez de funciones utilizamos métodos (funciones de un objeto) y además he añadido una forma un
 poco más amigable de poder llamar a los metodos de la “clase padre” (prototipo de la función constructora), de manera
 que en vez de</p>
 
@@ -348,8 +355,9 @@ que en vez de</p>
 
 <p>Esta segunda posibilidad aunque más intuitiva y sencilla tiene un inconveniente importante, las funciones método sólo
 podrán ser utilizadas ligándolas a objetos del
-&#8220;mismo tipo&#8221; (mismo prototipo) al objeto al que pertenecen, es decir no podrán utilizarse como funciones desligadas
-con objetos que en su prototipo no tengan la función <code>parent()</code> con la misma semántica</p>
+&#8220;mismo tipo&#8221; (misma función constructora) al objeto al que pertenecen, es decir no podrán utilizarse como funciones desligadas
+con objetos que en su cadena prototípica no tengan la función <code>parent()</code> con la misma semántica, esto nos aleja de una programación funcional
+y nos acerca más a la programación OOP, pero bueno es opcional y dependiendo de nuestro diseño no tiene por qué ser negativo.</p>
 
 <p>Para facilitar la operación de ligar una funcion con el objeto al que pertenece he includo un método no enumerado
 dentro de la cadena prototípica que se llama <code>method()</code>, podéis ver su uso en el ejemplo para generar una función
