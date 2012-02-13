@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
-  <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <title><![CDATA[Category: OOP | NN.blog.last()]]></title>
+  <link href="http://nnombela.github.com/blog/categories/oop/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
   <updated>2012-02-13T13:50:46+01:00</updated>
   <id>http://nnombela.github.com/</id>
