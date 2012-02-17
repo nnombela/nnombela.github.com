@@ -4,7 +4,7 @@
   <title><![CDATA[NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-02-17T13:03:11+01:00</updated>
+  <updated>2012-02-17T14:20:41+01:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -64,8 +64,8 @@ consistencia eventual.</p>
 <ul>
 <li><p><strong>Baja latencia</strong>, <em>el usuario ve los cambios inmediatamente, ya que ocurren primero en cliente y luego estos
 cambios se van propagando por el sistema.</em></p></li>
-<li><p><strong>Alta disponibilidad y tolerancia a fallos</strong>, *de nuevo la aplicación corre básicamente en cliente, pudiendo
-funcionar, al menos en parte, en modo offline. Los servicios son stateless y los datos están replicados *</p></li>
+<li><p><strong>Alta disponibilidad y tolerancia a fallos</strong>, <em>de nuevo la aplicación corre básicamente en cliente, pudiendo
+funcionar, al menos en parte, en modo offline. Los servicios son stateless y los datos están replicados</em></p></li>
 <li><p><strong> Alta capacidad de escalado</strong>, <em>la aplicación corre en local, los servicios externos son sin estado  y los datos
 están distribuidos en nodos que siguen modelo de consistencia eventual donde los cambios se van propagando por los nodos.</em></p></li>
 </ul>
@@ -677,7 +677,7 @@ al menos haber despertado vuestro interés. Intentaré seguir en ello.</p>
 <ul>
 <li>Es un blog de publicación estática con total control sobre lo que aparece, como tiene que ser&#8230;</li>
 <li>Puede alojarse en <a href="http://github.com">github</a> gratuítamente y la carga de páginas es muy rápida, como ventaja añadida todo el blog está versionado.</li>
-<li>El diseño por defecto es muy simple, limpio y fácilmente modificable.</li>
+<li>El <em>theme</em> por defecto es muy simple, limpio y fácilmente modificable.</li>
 <li>Es un blog de programadores para programadores y se nota. Está hecho en Ruby, qeu no conozco bien pero es fácil de utilizar.</li>
 <li>Es muy fácil incluir código en las entradas y se integra con <code>github gist</code> (trozos de código) estupendamente.</li>
 <li>Es posible trabajar offline, viendo rápidamente los cambios y utilizando mi IDE favorito, cuando estás conforme haces un <code>push</code> a github</li>
