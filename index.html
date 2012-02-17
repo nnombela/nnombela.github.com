@@ -9,7 +9,8 @@
   <meta name="author" content="Nicolas Nombela">
 
   
-  <meta name="description" content="Llevando 3 años usando Grails casi de continuo, en mi trabajo es habitual que me pregunten cuánto tiempo le llevaría a un javero de toda la vida &hellip;">
+  <meta name="description" content="La Consistencia Eventual (EC) es un modelo de consistencia de datos. EC es un tema realmente interesante. Aunque bautizado
+con este nombre en el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +66,135 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/17/eventual-consistency/">Eventual Consistency</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-17T12:11:00+01:00" pubdate data-updated="true">Feb 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>La Consistencia Eventual (EC) es un modelo de consistencia de datos. EC es un tema realmente interesante. Aunque bautizado
+con este nombre en el ámbito de la replicación de datos de grandes BBDD distribuidas, la misma idea y técnicas similares
+se han estado aplicando, desde que existen, a cualquier tipo de sistema distribuido con necesidades de baja latencia y alta disponibilidad.</p>
+
+<p>La consistencia de datos es una propiedad importante en cualquier sistema, sin ella su estado puede no estar
+correctamente definido y su comportamiento volverse impredecible. Idealmente sólo existiría un modelo de
+consistencia: cuando hay un cambio en los datos del sistema todos los posibles observadores del sistema ven ese cambio
+al mismo tiempo.  Este modelo es el que se denomina Consistencia Inmediata.</p>
+
+<p>La Consistencia Inmediata es el modelo habitual en la mayoría de los sistema y en particular en las aplicaciones web
+de pequeño-mediano tamaño e incluso de gran tamaño.. pero no en las mega infraestructuras de las herramientas de los
+grandes empresas de Internet, como Google, Amazon o en las de las grandes redes sociales como Twiter o Facebook. En estos
+sistemas altamente distribuidos es necesario algún tipo de modelo de Consistencia Eventual.</p>
+
+<p>En el modelo EC la consistencia de datos no se alcanza inmediatamente para todos los observadores del sistema al mismo tiempo,
+sino en un intervalo de tiempo no determinado, es decir, eventualmente. Existe una propagación en el tiempo de los
+cambios del sistema y una política de resolución de conflictos en caso de que los hubiese (situación que ocurre con
+mucha menos frecuencia de lo que pudiera pensarse). En cualquier caso existe una garantía de consistencia eventual
+en el tiempo de los datos, y esto es lo importante.</p>
+
+<p>EC es un modelo que tiene gran importancia en los sistemas distribuidos y especialmente en aquellos que buscan baja
+latencia, alta disponibilidad, alta escalabilidad y alta tolerancia a fallos, es decir, todos, ya que por definición
+un sistema distribuido más tarde o más temprano se encontrará con alguno o todos estos problemas,
+ver <a href="http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing">Fallacies of Distributed Computing</a></p>
+
+<p>La consistencia eventual es un típico trade-off de ingeniería, es renunciar a algo que pensabas que era más importante
+para el sistema de lo que realmente es, a cambio de tener otras cualidades que realmente sí son necesarias. ¿Cuál es
+la renuncia? Se renuncia a tener una consistencia de datos inmediata en todo el sistema y en un mismo momento, jugando
+con la variable tiempo conseguimos que nuestro sistema distribuido (en el espacio) sea mejor ahí donde más le duele:
+latencia, disponibilidad, escalado y tolerancia a fallos ¡Valla chollo no! Vamos a ver con algunos ejemplos en qué
+consiste y cómo conseguirlo.</p>
+
+<p>Hay que tener en cuenta que desde el momento que una aplicación tiene un cliente y un servidor es un sistema
+distribuido, el <code>nodo cliente</code> puede mantener unos datos (un estado) distinto de los que tiene el <code>nodo servidor</code> y
+eventualmente sincronizar este estado con él. No es lo habitual en la mayor parte de las aplicaciones web clásicas
+donde el estado de la aplicación está en servidor, pero sí es más habitual en un nuevo modelo de arquitectura web
+que está surgiendo con fuerza de aplicación JavaScript corriendo en su totalidad en cliente (navegador) y sincronizando
+datos eventualmente con el servidor (de forma asíncrona utilizando AJAX). Servidor que a su vez puede tener los datos
+en un sistema externo tipo DHT (Distributed Hash Table) o similar que utilice replicación siguiendo un modelo de
+consistencia eventual.</p>
+
+<p>Este tipo de arquitecturas distribuidas destacan por tener:</p>
+
+<ul>
+<li><p><strong>Baja latencia</strong>, <em>el usuario ve los cambios inmediatamente, ya que ocurren primero en cliente y luego estos
+cambios se van propagando por el sistema.</em></p></li>
+<li><p><strong>Alta disponibilidad y tolerancia a fallos</strong>, *de nuevo la aplicación corre básicamente en cliente, pudiendo
+funcionar, al menos en parte, en modo offline. Los servicios son stateless y los datos están replicados *</p></li>
+<li><p><strong> Alta capacidad de escalado</strong>, <em>la aplicación corre en local, los servicios externos son sin estado  y los datos
+están distribuidos en nodos que siguen modelo de consistencia eventual donde los cambios se van propagando por los nodos.</em></p></li>
+</ul>
+
+
+<p>¿Cuáles son las claves tecnológicas de estos sistemas distribuidos? Pero muy especialmente cuando se trata de aplicaciones
+web (y aplicaciones multi-dispositivo).</p>
+
+<ol>
+<li><p><em>JavaScript en el <code>nodo cliente</code>: navegador, tablet, smartphone, TV&#8230; pero  incluso en las aplicaciones desktop del próximo
+Windows 8 (por cierto que aquí MS está teniendo mucho más clara las ideas que otros y en algunos aspectos va un paso por delante).</em></p></li>
+<li><p><em>De nuevo JavaScript en medio, en la <code>nube de servicios</code> (que no capa&#8230;). ¿De nuevo JavaScript? Aquí probablemente habré
+cogido con el pie cambiado a más de uno. Node.js es la tecnología con más “hype” y que más rápidamente estoy viendo crecer, y
+ya he visto unas cuantas. Es una de las tecnologías que mejor encajan, hay varias razones: los servicios idealmente deben ser
+sin estado, asíncronos, y mejor con REST y JSON, pero estas razones merecen un post aparte&#8230; como avance diré que también
+tienen que ver mucho con 1) y con 3). (De nuevo aquí la plataforma Windows Azure sorpresivamente parece ir un paso por delante).</em></p></li>
+<li><p><em>NoSQL en los <code>nodos de datos</code> y muy en particular aquellas que tienen como tecnología subyacente algún tipo
+de DHT o similar (casi todas) y vistas Map/Reduce (vistas de datos),  por supuesto ambas con un modelo de consistencia
+de datos eventual (tanto en los datos como en las vistas), que es el tema que da título a este post. Lo ideal es utilizar
+aquí también JSON, con lo que de nuevo es ideal utilizar también aquí JavaScript en las funciones Map y Reduce (de las
+que hablaré en otro post), por aquello de que JS es un lenguaje funcional sencillo y también por homogeneidad con el resto de nodos.</em></p></li>
+</ol>
+
+
+<p>Es un cambio de paradigma donde en vez de tener un sistema de varias capas que desde fuera (para los observadores del sistema)
+parece un único nodo, se tienen muchos nodos distribuidos, con un nodo cliente casi autónomo (con mayor o menor capacidad
+de funcionar offline), que se comunica de forma eventual y asíncrona con multitud de pequeños nodos que proporcionan servicios
+sin estado en la nube y finalmente un estado almacenado en nodos distribuidos DHT que utilizan un modelo de consistencia
+eventual. JavaScript y JSON son el pegamento de esta arquitectura y no olvidemos que es el único lenguaje que corre de forma
+nativa en la mayoría de los navegadores y múltiples dispositivos.</p>
+
+<p>Actualmente estamos entrando en una etapa que algunos denominan Polyglot, con múltiples lenguajes y tecnologías en un mismo
+sistema, que previsiblemente se mantendrá durante un tiempo, pero teniendo en cuanta la fuerza con la que vienen las nuevas
+tecnologías JavaScript y su vocación multi-paradigma y multi-plataforma, pues no sé si va a ser una etapa transitoria
+o qué va a pasar. Desde luego el futuro en este mundo de las tecnologías Internet ha demostrado ser cualquier cosa
+menos predecible&#8230; Y si no ¿Quién iba a decirle al creador de JavaScript que su lenguaje iba a tener un segundo hype
+tan fuerte como está teniendo más de 20 años después?</p>
+
+<blockquote><p>Una nota, JavaScript es un lenguaje con muchas deficiencias, pero actualmente existen algunas iniciativas de hacerlo
+avanzar (JS.next), como son ES Harmony, CoffeScript o Google Dart, todas ellas compatibles o que compilan a JS.</p></blockquote>
+
+<p>Mi intención al inicio de este post era hablar exclusivamente de Consistencia Eventual, un modelo poco conocido,
+al menos con este nombre, pero que considero muy interesante conocer y entender, especialmente para ser utilizado en aplicaciones
+distribuidas, finalmente he acabado hablando un poco de muchas otras cosas y me he dejado cosas por contar, en concreto,
+ver algunos ejemplos concretos de aplicaciones distribuidas y explicar una parte fundamental de EC que es la <strong>política de
+resolución de conflictos</strong>, lo dejo para una segunda parte de este post.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -463,6 +593,10 @@ de estos asistentes de edición que siempre me funcionan mal, para mi es más c�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/17/eventual-consistency/">Eventual Consistency</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/02/14/groovy-closures-explicados-con-java/">Groovy closures explicados con Java</a>
