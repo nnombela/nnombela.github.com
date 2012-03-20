@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-03-20T12:55:35+01:00</updated>
+  <updated>2012-03-20T13:13:20+01:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -48,10 +48,11 @@ lo contrario, dos nodos, cliente y servidor muy parecidos (lenguaje, modelo de p
 un peso también parecido (mayor peso en el lado cliente y menor en el lado servidor).</p>
 
 <blockquote><p>Tanto es el parecido entre el nodo cliente y el nodo servidor que ya hay interesantes
-iniciativas en <a href="http://npmjs.org/">npm</a> para que el acoplamiento de ambos nodos sea aún más transparente y más sencillo como <a href="http://nowjs.com/">nowjs</a></p></blockquote>
+iniciativas en <a href="http://npmjs.org/">npm</a> como <a href="http://nowjs.com/">nowjs</a> para que el acoplamiento y comunicación entre ambos nodos sea aún más directo,
+transparente y sencillo.</p></blockquote>
 
-<p>Vamos a repasar las características de Node.js para entender un poco mejor este nuevo (nuevo en cuanto a popularidad)
-modelo de programación en servidor. Empecemos con la característica más sorprendente:</p>
+<p>Vamos a repasar las características de Node.js para entender un poco mejor este nuevo
+modelo de programación en servidor (nuevo en cuanto a popularidad). Empecemos con la característica más sorprendente:</p>
 
 <ul>
 <li><p><strong>Single Threaded</strong>. <em>Todo tu código (no todo el código pero sí el tuyo) corre en un único hilo de ejecución. No se vosotros
@@ -102,7 +103,7 @@ altamente multi-hilo, donde cada uno de los trozos de código asíncronos o <cod
 software o <code>green thread</code> y los eventos son mensajes que se envían y reciben por los hilos siguiendo un patrón parecido
 al <code>Actor Model</code> , carece de la sofisticación del modelo implementado en Erlang o Scala, pero el principio es básicamente
 el mismo, en mi opinión, y al mismo tiempo es más simple de utilizar. Este tipo de modelos están demostrando tener grandes ventajas
-en la capa de servidor.</p>
+en el lado del servidor.</p>
 
 <p>La programación asíncrona mono-hilo y dirigida por eventos no es una gran desconocida para el programador web, al
 menos no para aquel que no trabaja exclusivamente en código de servidor, ya que es el modelo que se utiliza en la
