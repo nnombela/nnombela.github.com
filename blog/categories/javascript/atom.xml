@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-03-16T13:29:01+01:00</updated>
+  <updated>2012-03-20T12:55:35+01:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -69,20 +69,29 @@ tiempo y el orden de ejecución del código. Es el precio que hay que pagar a ca
 <p>Veamos cuáles son estos aspectos:</p>
 
 <ol>
-<li><p>El código asíncrono dirigido por eventos es, en principio, código no bloqueante, entendido bloqueante como aquel
-en el que el código (la CPU) no esta haciendo nada constructivo excepto esperar por alguna condición. En realidad el
+<li>El código asíncrono dirigido por eventos es, en principio, código no bloqueante, entendido bloqueante como aquel
+en el que el código (la CPU) no esta haciendo nada constructivo excepto esperar por alguna condición externa, típicamente
+algún tipo de comunicación I/O. En realidad el
 código en Node.js puede ser igualmente bloqueante, pero resulta primero, más difícil hacerlo inadvertidamente, y
 segundo, resulta más catastrófico (recuerda que sólo hay un único hilo de ejecución). El programador es mucho más
 consciente del problema, su estilo de programación tiende a ser completamente asíncrono y cuando no lo es en seguida
-advierte el problema, no queda oculto como ocurre en la programación multi-hilo.</p></li>
+advierte el problema, no queda oculto como ocurre en la programación multi-hilo.</li>
+</ol>
+
+
+<p>He tenido la oportunidad de ver y incluso auditar bastantes aplicaciones web con problemas de rendimiento hechas en Java,
+en el 100% de los casos Java como lenguaje no tenía nada que ver con el problema. El problema estaba en muchos casos
+en código bloqueante: Acceso a otros Servicios Web, acceso a BBDD o acceso al sistema de ficheros, en ese orden.</p>
+
+<ol>
 <li><p>El código asíncrono no sólo es idealmente no bloqueante sino que como consecuencia de ello es más
 eficiente (no consume tiempo de esperas) y por lo tanto su rendimiento y su eficiencia son mayorres. Además como
 todo tu código corre en un único hilo no existe el “overhead” asociado al cambio de hilo.</p></li>
-<li><p>Como el código corre en un único hilo no existen, en principio, los problemas asociados al código multi-hilo, que
-tan difíciles son de detectar y de solucionar. Hay menos código y es más sencillo y por lo tanto es más mantenible</p></li>
+<li><p>Como el código corre en un único hilo no existen, en principio, los problemas asociados al código multihilo, que
+tan difíciles son de detectar y de solucionar (aunque de hecho puede haberlos igualmente). Hay menos código y es más sencillo y por lo tanto es más mantenible</p></li>
 <li><p>La programación dirigida por eventos permite una programación mucho más modular, ya no es necesario diseñar
 cuidadosamente las dependencias entre módulos.  En la programación por eventos la comunicación se realiza emitiendo
-eventos y registrando listeners de esos eventos, es un mecanismo totalmente desacoplado del diseño. El resultado es
+eventos y registrando <code>listeners</code> de esos eventos, es un mecanismo totalmente desacoplado del diseño. El resultado es
 código mucho más sencillo, más desacoplado, más modular y sobre todo con mucha más flexibilidad respecto a los
 cambios de diseño, aunque también tiene sus aspecto negativos como la dificultad en la depuración.</p></li>
 </ol>
@@ -90,7 +99,7 @@ cambios de diseño, aunque también tiene sus aspecto negativos como la dificult
 
 <p>En cierta manera el modelo de programación asíncrono, mono-hilo y dirigido por eventos sería equivalente a un modelo
 altamente multi-hilo, donde cada uno de los trozos de código asíncronos o <code>callbacks</code> es un hilo de ejecución por
-software <code>green thread</code> y los eventos son mensajes que se envían y reciben por los hilos siguiendo un patrón parecido
+software o <code>green thread</code> y los eventos son mensajes que se envían y reciben por los hilos siguiendo un patrón parecido
 al <code>Actor Model</code> , carece de la sofisticación del modelo implementado en Erlang o Scala, pero el principio es básicamente
 el mismo, en mi opinión, y al mismo tiempo es más simple de utilizar. Este tipo de modelos están demostrando tener grandes ventajas
 en la capa de servidor.</p>
@@ -110,7 +119,8 @@ una tendencia cada vez más fuerte a utilizar CoffeScript). Existen frameworks s
 Python <a href="http://twistedmatrix.com/trac/">Twisted</a> y Ruby <a href="http://rubyeventmachine.com/">Event Machine</a> y el
 modelo de programación web
 dirigido por eventos no es ni siquiera novedoso, pero una de las claves de la explosión de Node.js ha sido la decisión
-muy acertada de su creador <a href="http://www.youtube.com/watch?v=jo_B4LTHi3I">Ryan Dahl</a> de usar JavasScript como lenguaje.</p>
+muy acertada de su creador <a href="http://www.youtube.com/watch?v=jo_B4LTHi3I">Ryan Dahl</a> de usar JavasScript como lenguaje y el
+motor V8 de Chrome.</p>
 ]]></content>
   </entry>
   
