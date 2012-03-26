@@ -10,26 +10,30 @@
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/02/14/groovy-closures-explicados-con-java/</loc>
-        <lastmod>2012-02-15T11:27:50+01:00</lastmod>
+        <lastmod>2012-03-21T18:32:05+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/02/17/eventual-consistency/</loc>
-        <lastmod>2012-02-17T14:19:18+01:00</lastmod>
+        <lastmod>2012-03-21T18:32:33+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/03/16/sobre-node-dot-js/</loc>
-        <lastmod>2012-03-20T13:12:53+01:00</lastmod>
+        <lastmod>2012-03-21T12:05:01+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://nnombela.github.com/blog/2012/03/21/asincronicidad-en-node-dot-js/</loc>
+        <lastmod>2012-03-26T11:07:06+02:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/</loc>
-        <lastmod>2012-03-20T13:12:53+01:00</lastmod>
+        <lastmod>2012-03-26T11:07:06+02:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/categories/</loc>
-        <lastmod>2012-03-20T13:12:53+01:00</lastmod>
+        <lastmod>2012-03-26T11:07:06+02:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/archives/</loc>
-        <lastmod>2012-03-20T13:12:53+01:00</lastmod>
+        <lastmod>2012-03-26T11:07:06+02:00</lastmod>
     </url>
 </urlset>

@@ -9,9 +9,8 @@
   <meta name="author" content="Nicolas Nombela">
 
   
-  <meta name="description" content="En el post anterior comenté que Node.js era la tecnología
-que más rápidamente he visto crecer en poco tiempo. Realmente
-a poco que uno lo siga, el &hellip;">
+  <meta name="description" content="El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
+post veremos algo de código que nos &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +66,52 @@ a poco que uno lo siga, el &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Asincronicidad en Node.js</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-21T11:53:00+01:00" pubdate data-updated="true">Mar 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
+post veremos algo de código que nos permita entender un poco mejor que significa programar en un modelo monohilo asíncrono,
+en la segunda parte de post veremos un ejemplo de programación dirigida por eventos utilizando eventos propios.</p>
+
+<p>Tener un sólo hilo de ejecución para todo el código tiene varias consecuencias en nuestro código de las que hay que estar alerta, estas
+son:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -159,93 +204,12 @@ correctamente definido y su comportamiento volverse impredecible. Idealmente só
 consistencia: cuando hay un cambio en los datos del sistema todos los posibles observadores del sistema ven ese cambio
 al mismo tiempo.  Este modelo es el que se denomina Consistencia Inmediata.</p>
 
-<p>La Consistencia Inmediata es el modelo habitual en la mayoría de los sistema y en particular en las aplicaciones web
-de pequeño-mediano tamaño e incluso de gran tamaño.. pero no en las mega infraestructuras de las herramientas de los
-grandes empresas de Internet, como Google, Amazon o en las de las grandes redes sociales como Twiter o Facebook. En estos
-sistemas altamente distribuidos es necesario algún tipo de modelo de Consistencia Eventual.</p>
-
-<p>En el modelo EC la consistencia de datos no se alcanza inmediatamente para todos los observadores del sistema al mismo tiempo,
-sino en un intervalo de tiempo no determinado, es decir, eventualmente. Existe una propagación en el tiempo de los
-cambios del sistema y una política de resolución de conflictos en caso de que los hubiese (situación que ocurre con
-mucha menos frecuencia de lo que pudiera pensarse). En cualquier caso existe una garantía de consistencia eventual
-en el tiempo de los datos, y esto es lo importante.</p>
-
-<p>EC es un modelo que tiene gran importancia en los sistemas distribuidos y especialmente en aquellos que buscan baja
-latencia, alta disponibilidad, alta escalabilidad y alta tolerancia a fallos, es decir, todos, ya que por definición
-un sistema distribuido más tarde o más temprano se encontrará con alguno o todos estos problemas,
-ver <a href="http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing">Fallacies of Distributed Computing</a></p>
-
-<p>La consistencia eventual es un típico trade-off de ingeniería, es renunciar a algo que pensabas que era más importante
-para el sistema de lo que realmente es, a cambio de tener otras cualidades que realmente sí son necesarias. ¿Cuál es
-la renuncia? Se renuncia a tener una consistencia de datos inmediata en todo el sistema y en un mismo momento, jugando
-con la variable tiempo conseguimos que nuestro sistema distribuido (en el espacio) sea mejor ahí donde más le duele:
-latencia, disponibilidad, escalado y tolerancia a fallos ¡Valla chollo no! Vamos a ver con algunos ejemplos en qué
-consiste y cómo conseguirlo.</p>
-
-<p>Hay que tener en cuenta que desde el momento que una aplicación tiene un cliente y un servidor es un sistema
-distribuido, el <code>nodo cliente</code> puede mantener unos datos (un estado) distinto de los que tiene el <code>nodo servidor</code> y
-eventualmente sincronizar este estado con él. No es lo habitual en la mayor parte de las aplicaciones web clásicas
-donde el estado de la aplicación está en servidor, pero sí es más habitual en un nuevo modelo de arquitectura web
-que está surgiendo con fuerza de aplicación JavaScript corriendo en su totalidad en cliente (navegador) y sincronizando
-datos eventualmente con el servidor (de forma asíncrona utilizando AJAX). Servidor que a su vez puede tener los datos
-en un sistema externo tipo DHT (Distributed Hash Table) o similar que utilice replicación siguiendo un modelo de
-consistencia eventual.</p>
-
-<p>Este tipo de arquitecturas distribuidas destacan por tener:</p>
-
-<ul>
-<li><p><strong>Baja latencia</strong>, <em>el usuario ve los cambios inmediatamente, ya que ocurren primero en cliente y luego estos
-cambios se van propagando por el sistema.</em></p></li>
-<li><p><strong>Alta disponibilidad y tolerancia a fallos</strong>, <em>de nuevo la aplicación corre básicamente en cliente, pudiendo
-funcionar, al menos en parte, en modo offline. Los servicios son stateless y los datos están replicados</em></p></li>
-<li><p><strong> Alta capacidad de escalado</strong>, <em>la aplicación corre en local, los servicios externos son sin estado  y los datos
-están distribuidos en nodos que siguen modelo de consistencia eventual donde los cambios se van propagando por los nodos.</em></p></li>
-</ul>
-
-
-<p>¿Cuáles son las claves tecnológicas de estos sistemas distribuidos? Pero muy especialmente cuando se trata de aplicaciones
-web (y aplicaciones multi-dispositivo).</p>
-
-<ol>
-<li><p><em>JavaScript en el <code>nodo cliente</code>: navegador, tablet, smartphone, TV&#8230; pero  incluso en las aplicaciones desktop del próximo
-Windows 8 (por cierto que aquí MS está teniendo mucho más clara las ideas que otros y en algunos aspectos va un paso por delante).</em></p></li>
-<li><p><em>De nuevo JavaScript en medio, en la <code>nube de servicios</code> (que no capa&#8230;). ¿De nuevo JavaScript? Aquí probablemente habré
-cogido con el pie cambiado a más de uno. Node.js es la tecnología con más “hype” y que más rápidamente estoy viendo crecer, y
-ya he visto unas cuantas. Es una de las tecnologías que mejor encajan, hay varias razones: los servicios idealmente deben ser
-sin estado, asíncronos, y mejor con REST y JSON, pero estas razones merecen un post aparte&#8230; como avance diré que también
-tienen que ver mucho con 1) y con 3). (De nuevo aquí la plataforma Windows Azure sorpresivamente parece ir un paso por delante).</em></p></li>
-<li><p><em>NoSQL en los <code>nodos de datos</code> y muy en particular aquellas que tienen como tecnología subyacente algún tipo
-de DHT o similar (casi todas) y vistas Map/Reduce (vistas de datos),  por supuesto ambas con un modelo de consistencia
-de datos eventual (tanto en los datos como en las vistas), que es el tema que da título a este post. Lo ideal es utilizar
-aquí también JSON, con lo que de nuevo es ideal utilizar también aquí JavaScript en las funciones Map y Reduce (de las
-que hablaré en otro post), por aquello de que JS es un lenguaje funcional sencillo y también por homogeneidad con el resto de nodos.</em></p></li>
-</ol>
-
-
-<p>Es un cambio de paradigma donde en vez de tener un sistema de varias capas que desde fuera (para los observadores del sistema)
-parece un único nodo, se tienen muchos nodos distribuidos, con un nodo cliente casi autónomo (con mayor o menor capacidad
-de funcionar offline), que se comunica de forma eventual y asíncrona con multitud de pequeños nodos que proporcionan servicios
-sin estado en la nube y finalmente un estado almacenado en nodos distribuidos DHT que utilizan un modelo de consistencia
-eventual. JavaScript y JSON son el pegamento de esta arquitectura y no olvidemos que es el único lenguaje que corre de forma
-nativa en la mayoría de los navegadores y múltiples dispositivos.</p>
-
-<p>Actualmente estamos entrando en una etapa que algunos denominan Polyglot, con múltiples lenguajes y tecnologías en un mismo
-sistema, que previsiblemente se mantendrá durante un tiempo, pero teniendo en cuanta la fuerza con la que vienen las nuevas
-tecnologías JavaScript y su vocación multi-paradigma y multi-plataforma, pues no sé si va a ser una etapa transitoria
-o qué va a pasar. Desde luego el futuro en este mundo de las tecnologías Internet ha demostrado ser cualquier cosa
-menos predecible&#8230; Y si no ¿Quién iba a decirle al creador de JavaScript que su lenguaje iba a tener un segundo hype
-tan fuerte como está teniendo más de 20 años después?</p>
-
-<blockquote><p>Una nota, JavaScript es un lenguaje con muchas deficiencias, pero actualmente existen algunas iniciativas de hacerlo
-avanzar (JS.next), como son ES Harmony, CoffeScript o Google Dart, todas ellas compatibles o que compilan a JS.</p></blockquote>
-
-<p>Mi intención al inicio de este post era hablar exclusivamente de Consistencia Eventual, un modelo poco conocido,
-al menos con este nombre, pero que considero muy interesante conocer y entender, especialmente para ser utilizado en aplicaciones
-distribuidas, finalmente he acabado hablando un poco de muchas otras cosas y me he dejado cosas por contar, en concreto,
-ver algunos ejemplos concretos de aplicaciones distribuidas y explicar una parte fundamental de EC que es la <strong>política de
-resolución de conflictos</strong>, lo dejo para una segunda parte de este post.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/17/eventual-consistency/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -291,245 +255,12 @@ Afortunadamente la curva de entrada de Groovy para un javero es muy suave, no es
 al principio es habitual seguir programando igual que en Java y poco a poco ir incorparando la nueva sintáxis y la nueva forma de hacer las cosas.
 El tiempo para una adaptación plena varia con la persona, pero típicamente lleva varias semanas o incluso meses, depende de las ganas que le ponga.</p>
 
-<p>Y de todas las dificultades la mayor que se va a encontrar, y probablemente la última en superar, será entender y usar adecuadamente el concepto de
-<code>Closure</code> en Groovy. Personalmente (es lo que a mi me ocurrió) creo que la mayor dificultad para entenderlo es que normalmente se explica
-en lenguaje convencional o natural, en Inglés o en Castellano, y dicho así no se pilla.</p>
-
-<p>Un ejercicio bastante didáctico, y que espero ayude a captar el concepto <code>Closure</code> más rápidamente a un javero, es intentar explicarlo en Java&#8230;</p>
-
-<p>Vamos a ello, para modelar los closures vamos a utilizar dos aspectos del lenguaje Java poco usados que son: las clases anonimas y las clases internas.</p>
-
-<p>De momento un <code>Closure</code> se puede modelar en Java como una interfaz, con un único método <code>execute()</code> que acepta un mapa de argumentos
-y devuelve un resultado.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">Closure</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">args</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Una implementación del método <code>forEach()</code> utilizando closures sería esta</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="n">Object</span> <span class="nf">forEach</span><span class="o">(</span><span class="n">Collection</span> <span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span><span class="o">,</span> <span class="n">Closure</span> <span class="n">closure</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Object</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
-</span><span class='line'>        <span class="n">args</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">args</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">,</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">closure</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">collection</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Y un ejemplo de uso en Java del anterior código sería el siguiente</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="c1">// First we build the a collection</span>
-</span><span class='line'>    <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;();</span>
-</span><span class='line'>    <span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hola&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Adios&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Then we traverse the collection</span>
-</span><span class='line'>    <span class="n">forEach</span><span class="o">(</span><span class="n">collection</span><span class="o">,</span> <span class="k">new</span> <span class="n">Closure</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot; Caracola&quot;</span><span class="o">);</span>
-</span><span class='line'>            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>En java usamos clases anónimas para crear el closure, pero la sintaxis como puede observarse no es muy intuitiva.
-En groovy el código anterior quedaría reducido a</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">[</span><span class="err">&#39;</span><span class="n">Hola</span><span class="err">&#39;</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">Adios</span><span class="err">&#39;</span><span class="o">].</span><span class="na">eachWithIndex</span> <span class="o">{</span> <span class="n">it</span><span class="o">,</span> <span class="n">index</span> <span class="o">-&gt;</span>
-</span><span class='line'>    <span class="n">println</span> <span class="s">&quot;$index : $it Caracola&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>Nota: El método <code>eachWithIndex()</code> debería de llamarse <code>each()</code> a secas, ver <a href="http://jira.codehaus.org/browse/GROOVY-1182">remove eachWithIndex</a></p></blockquote>
-
-<p>Si esto fuese todo, los closures no serían complicados de entender pero la cosa se complica cuando tenemos en cuenta el
-aspecto más interesante de los closures:
-<strong>los closures tienen acceso a las variables del contexto donde fueron creados</strong>. Para modelar esto en Java es necesario
-introducir una nueva entidad <code>Context</code>.
-En java existe algo parecido a los closures en el aspecto de llevar consigo el contexto donde fueron creados, que son las inner clases, y de hecho se metieron en la especificación
-final de Java con esta idea y con muchas dudas (que el tiempo a confirmado fundadas) sobre su utilidad.</p>
-
-<p>Vamos a modelar el contexto con un clase <code>Context</code> (qué basicamente es un mapa de variables) y el closure con una clase interna (inner class)
-que está vez no será una interfaz si no una clase abstracta. Los argumentos del método <code>execute()</code> serán en vez de un mapa un <code>Context</code>
-y podemos crear los argumentos usando el método <code>createArgs()</code> del objeto <code>Closure</code>. El objeto <code>Context</code> puede tener a su vez un
-contexto &#8220;padre&#8221;, pudiendo formar una cadena de contextos.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">Context</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Context</span> <span class="n">parent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">variables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">Context</span><span class="o">(</span><span class="n">Context</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Context</span> <span class="nf">add</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Object</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">variables</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Traverse context chain</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">variables</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">name</span><span class="o">)?</span> <span class="n">variables</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span>
-</span><span class='line'>            <span class="n">parent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">?</span> <span class="n">parent</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Closure</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Context</span> <span class="n">args</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kd">public</span> <span class="n">Context</span> <span class="nf">createArgs</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">return</span> <span class="k">new</span> <span class="nf">Context</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Como podéis ver evidentemente la cosa se ha complidado&#8230;. veamos el método <code>forEach()</code> y el ejemplo de uso que prácticamente no han cambiado.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="n">Object</span> <span class="nf">forEach</span><span class="o">(</span><span class="n">Collection</span> <span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">Closure</span> <span class="n">closure</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Object</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Context</span> <span class="n">args</span> <span class="o">=</span> <span class="n">closure</span><span class="o">.</span><span class="na">createArgs</span><span class="o">().</span>
-</span><span class='line'>            <span class="n">add</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">,</span> <span class="n">i</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">,</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">closure</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">collection</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Y el ejemplo de uso en Java</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;();</span>
-</span><span class='line'><span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hola&quot;</span><span class="o">);</span>
-</span><span class='line'><span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Adios&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">Context</span> <span class="n">cxt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span> <span class="c1">// No parent context</span>
-</span><span class='line'><span class="n">cxt</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">,</span> <span class="s">&quot;Caracola&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">forEach</span><span class="o">(</span><span class="n">collection</span><span class="o">,</span> <span class="n">cxt</span><span class="o">.</span><span class="na">new</span> <span class="n">Closure</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Context</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span><span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">));</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Puede que la sintaxis de creación de las clases anónimas dentro de clases internas <code>cxt.new Closure()</code> no te sea familiar, no te preocupes no estás sólo,
-yo tuve que mirarlo de nuevo para escribir el post&#8230;</p>
-
-<p>En groovy el código anterior quedaría reducido a</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">def</span> <span class="n">name</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Caracola</span><span class="err">&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">[</span><span class="err">&#39;</span><span class="n">Hola</span><span class="err">&#39;</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">Adios</span><span class="err">&#39;</span><span class="o">].</span><span class="na">eachWithIndex</span> <span class="o">{</span> <span class="n">it</span><span class="o">,</span> <span class="n">index</span> <span class="o">-&gt;</span>
-</span><span class='line'>    <span class="n">println</span> <span class="s">&quot;$index : $it $name&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Espero que el post te haya servido para entender un poco mejor que son los closures de Groovy, de manera que la próxima
-vez que veas un closure (recuerda que en Groovy podemos crear uno con la sintaxis simplificada de llaves cerradas <code>{ }</code>),
-te preguntes ¿Cuáles son sus argumentos? y ¿Cuál es su contexto? Y sobre todo aunque se parecen mucho no lo confundas con
-un método. El método tiene como contexto el objecto al que pertenece, el <code>Closure</code> tiene como contexto el ámbito donde fue creado.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/14/groovy-closures-explicados-con-java/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -650,6 +381,10 @@ de estos asistentes de edición que siempre me funcionan mal, para mi es más c�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Asincronicidad en Node.js</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/03/16/sobre-node-dot-js/">Sobre Node.js</a>
       </li>
     
@@ -663,10 +398,6 @@ de estos asistentes de edición que siempre me funcionan mal, para mi es más c�
     
       <li class="post">
         <a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto de OOP tiene Javascript?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/11/sobre-este-blog/">Sobre este blog</a>
       </li>
     
   </ul>

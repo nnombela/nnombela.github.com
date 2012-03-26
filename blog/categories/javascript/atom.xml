@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-03-20T13:13:20+01:00</updated>
+  <updated>2012-03-26T11:08:52+02:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -12,6 +12,224 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Asincronicidad en Node.js]]></title>
+    <link href="http://nnombela.github.com/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
+    <updated>2012-03-21T11:53:00+01:00</updated>
+    <id>http://nnombela.github.com/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
+    <content type="html"><![CDATA[<p>El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
+post veremos algo de código que nos permita entender un poco mejor que significa programar en un modelo monohilo asíncrono,
+en la segunda parte de post veremos un ejemplo de programación dirigida por eventos utilizando eventos propios.</p>
+
+<p>Tener un sólo hilo de ejecución para todo el código tiene varias consecuencias en nuestro código de las que hay que estar alerta, estas
+son:</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p>No puede haber código bloqueante o todo el servidor quedará bloqueado y esto incluye no responder a nuevas peticiones entrantes.
+Cualquier tarea que pueda dar lugar a esperas activas o simplemente su tiempo de ejecución sea demasiado grande debe ser tratado
+de manera asíncrona. Esto incluye muy especialmente
+todas las tareas que impliquen algún tipo de comunicación I/O, salida a red, a base de datos o incluso al sistema de ficheros. Si tenemos
+alguna tarea computacionalmente intensiva deberemos intentar trocearla en varios bloques o trocearla en el tiempo (time-slice) para
+darle respiro al servidor y que pueda atender otros bloques de código, afortunadamente esto último no es nada habitual.</p></li>
+<li><p>La asincronicidad implica que no sabemos cuándo ni en que orden se va a ejecutar el código, generalmente esto no es importante
+pero en ocasiones sí lo es y habrá que tenerlo en cuenta. En cuanto al cuándo lo más habitual será tener que tener en cuenta
+un posible evento de <code>timeout</code>, si estamos utilizando un modulo externo será tan simple como suscribirnos al evento, si es código
+propio utilizaremos la función <code>setTimeout()</code>. En cuanto al orden de ejecución, algo también poco habitual, si tenemos que controlarlo
+utilizaremos <code>callbacks</code> anidados o la función <code>process.nextTick()</code> para retrasar la ejecución dentro de la cola de eventos.
+Luego veremos ejemplos de utilización de estas funciones.</p></li>
+<li><p>En caso de error inesperado debemos capturarlo y controlar el posible estado en que haya podido quedar la ejecución
+del código. Muy especialmente en caso de haya recursos que no hayan sido liberados, haya tareas
+(bloques de código o <code>callbacks</code>) dependientes de la tarea que ha generado el error o tengamos una política de reintentos.
+Aunque si nuestro código es realmente
+asíncrono y dirigido por eventos la liberación de los recursos ocurrirá cuando salte el  correspondiente evento de <code>timeout</code> asociado al
+recurso o el <code>timeout</code> asociado a la tarea dependiente.</p></li>
+</ol>
+
+
+<p>Llegado a este punto uno puedo pensar que programar en un modelo mohilo asíncrono es mucho más difícil que programar en un modelo
+multihilo sincrono más tradicional, pero no es así por que para programar BIEN en servidor en cualquier de los dos modelos un programador
+tiene que tener siempre en la cabeza y tener en cuenta todos todos los aspectos anteriores, que se resumen en:</p>
+
+<ol>
+<li>Esperas y posibilidad de código bloqueante</li>
+<li>Eventos de <code>timeouts</code> en la comunicación I/O</li>
+<li>Capturas de errores inesperados, política de reintentos y liberación de recursos</li>
+</ol>
+
+
+<p>En la programación de servidor multihilo sincrona más tradicional todos estos aspectos quedan ocultos, no forman parte
+ del modelo de programación, en muchas muchísimas ocasiones no se tienen en cuenta, incluso por programadores expertos.
+ Erróneamente se puede llegar a pensar que la lógica que tiene que tener todo esto en cuenta no es necesaria en un primer
+ momento o es una forma de optimización prematura, además no resulta sencillo implementar la lógica de manera correcta.</p>
+
+<blockquote><p>Es decir, en este tipo de modelo de programación es muy fácil o casi inevitable programar MAL código de servidor.</p></blockquote>
+
+<p>En cambio en la programación de servidor monohilo asíncrono dirigida por eventos todos estos aspectos están presentes de serie
+ desde el princio, forman parte del modelo de programación, son mucho más evidentes y si no se tienen en cuenta el posible problema no pasa inadvertido y desde el principio
+ se manifiesta con resultados a veces catastróficos como dejar el servidor bloqueado. Ademas la programación asíncrona por eventos
+ resulta la manera más sencilla, correcta y desacoplada de tratar con todos los aspectos anteriores.</p>
+
+<blockquote><p>Es decir, en este tipo de modelo de programación es muy difícil o fácilmente evitable programar MAL código de servidor.</p></blockquote>
+
+<p>Ahora vamos a ver un ejemplo sencillo de código bloqueante, de esperas, de la cola de eventos y de timeouts. Veamos
+primero un ejemplo de código bloqueante, un "Hello World" con un bloque de código bloqueante.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;util&quot;</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">function</span> <span class="nx">writeResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="nx">response</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+</span><span class='line'><span class="nx">util</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;OnRequest ended&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">function</span> <span class="nx">sleepSynch</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">startTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="nx">startTime</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// do nothing</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">writeResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">util</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;OnRequest started&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">sleepSynch</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>   <span class="c1">// bloque síncrono</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// sleepAsynch(10, response)   // bloque asíncrono</span>
+</span><span class='line'><span class="c1">// sleepAsynchWithNextTick(10, response); // bloque asíncrono con nextTick</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8888</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Listening on port 8888&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>sleepSynch</code> es un bloque de código síncrono, espera activamente durante 10 segundos sin hacer nada, es un simple bucle
+<code>while</code> que comprueba el tiempo transcurrido. Pudiera ser un bloque que realiza una tarea computacionalmente intesiva o una lectura
+o escritura en disco de un fichero de gran tamaño o cualquier otra tarea bloqueante, lo importante del ejemplo es que si
+lo ejecutamos veremos como nuestro servidor de "Hola Mundo después de 10 segundos" queda bloqueado y es más bien un servidor
+de "Hola Mundo después de 10 segundo o mucho más". Atiende las peticiones en serie una detrás de otra.</p>
+
+<p>Vamos a ver ahora este mismo ejemplo pero utilizando código asíncrono no bloqueante, todo queda igual excepto el bloque de
+código bloqueante que ahora sería asíncrono</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">sleepAsynch</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">doResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span class='line'><span class="p">},</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>La función <code>setTimeout()</code> es un función nativa asíncrona, muy frecuéntemente utilizada en Node.js para controlar
+tiempos de ejecución de código. Lo importante es ver que ahora nuestro servidor de "Hola Mundo después de 10 segundos" queda
+desbloqueado, ahora ya es capaz de responder a todas las peticiones de forma paralela (al menos de forma efectiva)</p>
+
+<p>Por último vamos a ver otra forma de conseguir la asincronicidad de forma menos óptima utizando la función <code>process.nextTick()</code>. Esta
+función acepta un bloque de código o <code>callback</code> que será ejecutado una vez vaciada la cola de eventos actual, mediante esta técnica
+conseguimos que el servidor no quede bloqueado y que el resto de tareas tengan oportunidad de ejecutarse.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">sleepAsynchWithNextTick</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">endTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span> <span class="nx">check</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="nx">endTime</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">check</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">doResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">})()</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>La función <code>process.nextTick()</code> es un técnica sencilla de conseguir asincronicidad y evitar el bloqueo del servidor, otra forma
+hubiese sido utilizar un `setTimeout(0, ..)' con tiempo 0, otra forma posible forma
+hubiese sido emitir un evento propio y escuchar por ese evento, aunque no está nada claro el orden de ejecución de los eventos
+dentro de la cola de eventos, no he encontrado documentación al respecto...</p>
+
+<p>Espero que este ejemplo simple sirva para entender un poco mejor el modelo de programación de Node.js, en la segunda parte de este
+post veremos un ejemplo de programación dirigida por eventos propios</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Sobre Node.js]]></title>
@@ -70,21 +288,17 @@ tiempo y el orden de ejecución del código. Es el precio que hay que pagar a ca
 <p>Veamos cuáles son estos aspectos:</p>
 
 <ol>
-<li>El código asíncrono dirigido por eventos es, en principio, código no bloqueante, entendido bloqueante como aquel
+<li><p>El código asíncrono dirigido por eventos es, en principio, código no bloqueante, entendido bloqueante como aquel
 en el que el código (la CPU) no esta haciendo nada constructivo excepto esperar por alguna condición externa, típicamente
 algún tipo de comunicación I/O. En realidad el
 código en Node.js puede ser igualmente bloqueante, pero resulta primero, más difícil hacerlo inadvertidamente, y
 segundo, resulta más catastrófico (recuerda que sólo hay un único hilo de ejecución). El programador es mucho más
 consciente del problema, su estilo de programación tiende a ser completamente asíncrono y cuando no lo es en seguida
-advierte el problema, no queda oculto como ocurre en la programación multi-hilo.</li>
-</ol>
+advierte el problema, no queda oculto como ocurre en la programación multi-hilo.</p>
 
-
-<p>He tenido la oportunidad de ver y incluso auditar bastantes aplicaciones web con problemas de rendimiento hechas en Java,
+<p>  He tenido la oportunidad de ver y incluso auditar bastantes aplicaciones web con problemas de rendimiento hechas en Java,
 en el 100% de los casos Java como lenguaje no tenía nada que ver con el problema. El problema estaba en muchos casos
-en código bloqueante: Acceso a otros Servicios Web, acceso a BBDD o acceso al sistema de ficheros, en ese orden.</p>
-
-<ol>
+en código bloqueante: Acceso a otros Servicios Web, acceso a BBDD o acceso al sistema de ficheros, en ese orden.</p></li>
 <li><p>El código asíncrono no sólo es idealmente no bloqueante sino que como consecuencia de ello es más
 eficiente (no consume tiempo de esperas) y por lo tanto su rendimiento y su eficiencia son mayorres. Además como
 todo tu código corre en un único hilo no existe el “overhead” asociado al cambio de hilo.</p></li>
@@ -138,6 +352,9 @@ se han estado aplicando, desde que existen, a cualquier tipo de sistema distribu
 correctamente definido y su comportamiento volverse impredecible. Idealmente sólo existiría un modelo de
 consistencia: cuando hay un cambio en los datos del sistema todos los posibles observadores del sistema ven ese cambio
 al mismo tiempo.  Este modelo es el que se denomina Consistencia Inmediata.</p>
+
+<!-- more -->
+
 
 <p>La Consistencia Inmediata es el modelo habitual en la mayoría de los sistema y en particular en las aplicaciones web
 de pequeño-mediano tamaño e incluso de gran tamaño.. pero no en las mega infraestructuras de las herramientas de los

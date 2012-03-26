@@ -145,21 +145,17 @@ tiempo y el orden de ejecución del código. Es el precio que hay que pagar a ca
 <p>Veamos cuáles son estos aspectos:</p>
 
 <ol>
-<li>El código asíncrono dirigido por eventos es, en principio, código no bloqueante, entendido bloqueante como aquel
+<li><p>El código asíncrono dirigido por eventos es, en principio, código no bloqueante, entendido bloqueante como aquel
 en el que el código (la CPU) no esta haciendo nada constructivo excepto esperar por alguna condición externa, típicamente
 algún tipo de comunicación I/O. En realidad el
 código en Node.js puede ser igualmente bloqueante, pero resulta primero, más difícil hacerlo inadvertidamente, y
 segundo, resulta más catastrófico (recuerda que sólo hay un único hilo de ejecución). El programador es mucho más
 consciente del problema, su estilo de programación tiende a ser completamente asíncrono y cuando no lo es en seguida
-advierte el problema, no queda oculto como ocurre en la programación multi-hilo.</li>
-</ol>
+advierte el problema, no queda oculto como ocurre en la programación multi-hilo.</p>
 
-
-<p>He tenido la oportunidad de ver y incluso auditar bastantes aplicaciones web con problemas de rendimiento hechas en Java,
+<p>  He tenido la oportunidad de ver y incluso auditar bastantes aplicaciones web con problemas de rendimiento hechas en Java,
 en el 100% de los casos Java como lenguaje no tenía nada que ver con el problema. El problema estaba en muchos casos
-en código bloqueante: Acceso a otros Servicios Web, acceso a BBDD o acceso al sistema de ficheros, en ese orden.</p>
-
-<ol>
+en código bloqueante: Acceso a otros Servicios Web, acceso a BBDD o acceso al sistema de ficheros, en ese orden.</p></li>
 <li><p>El código asíncrono no sólo es idealmente no bloqueante sino que como consecuencia de ello es más
 eficiente (no consume tiempo de esperas) y por lo tanto su rendimiento y su eficiencia son mayorres. Además como
 todo tu código corre en un único hilo no existe el “overhead” asociado al cambio de hilo.</p></li>
@@ -249,6 +245,8 @@ motor V8 de Chrome.</p>
         <a class="basic-alignment left" href="/blog/2012/02/17/eventual-consistency/" title="Previous Post: Eventual Consistency">&laquo; Eventual Consistency</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/03/21/asincronicidad-en-node-dot-js/" title="next Post: Asincronicidad en Node.js">Asincronicidad en Node.js &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -268,6 +266,10 @@ motor V8 de Chrome.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Asincronicidad en Node.js</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/03/16/sobre-node-dot-js/">Sobre Node.js</a>
       </li>
     
@@ -281,10 +283,6 @@ motor V8 de Chrome.</p>
     
       <li class="post">
         <a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto de OOP tiene Javascript?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/11/sobre-este-blog/">Sobre este blog</a>
       </li>
     
   </ul>

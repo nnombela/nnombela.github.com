@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-03-20T13:13:20+01:00</updated>
+  <updated>2012-03-26T11:08:52+02:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -29,6 +29,9 @@ lenguaje, Groovy te obliga a cambiar la forma de hacer las cosas y de pensar en 
 Afortunadamente la curva de entrada de Groovy para un javero es muy suave, no es una renuncia de Java, es casi una evolución,
 al principio es habitual seguir programando igual que en Java y poco a poco ir incorparando la nueva sintáxis y la nueva forma de hacer las cosas.
 El tiempo para una adaptación plena varia con la persona, pero típicamente lleva varias semanas o incluso meses, depende de las ganas que le ponga.</p>
+
+<!-- more -->
+
 
 <p>Y de todas las dificultades la mayor que se va a encontrar, y probablemente la última en superar, será entender y usar adecuadamente el concepto de
 <code>Closure</code> en Groovy. Personalmente (es lo que a mi me ocurrió) creo que la mayor dificultad para entenderlo es que normalmente se explica

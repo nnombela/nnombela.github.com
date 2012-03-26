@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Arquitectura | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/arquitectura/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-03-20T13:13:20+01:00</updated>
+  <updated>2012-03-26T11:08:52+02:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -26,6 +26,9 @@ se han estado aplicando, desde que existen, a cualquier tipo de sistema distribu
 correctamente definido y su comportamiento volverse impredecible. Idealmente sólo existiría un modelo de
 consistencia: cuando hay un cambio en los datos del sistema todos los posibles observadores del sistema ven ese cambio
 al mismo tiempo.  Este modelo es el que se denomina Consistencia Inmediata.</p>
+
+<!-- more -->
+
 
 <p>La Consistencia Inmediata es el modelo habitual en la mayoría de los sistema y en particular en las aplicaciones web
 de pequeño-mediano tamaño e incluso de gran tamaño.. pero no en las mega infraestructuras de las herramientas de los
