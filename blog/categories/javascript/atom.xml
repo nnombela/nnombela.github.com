@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-03-26T11:08:52+02:00</updated>
+  <updated>2012-04-13T12:17:50+02:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -73,7 +73,7 @@ tiene que tener siempre en la cabeza y tener en cuenta todos todos los aspectos 
  se manifiesta con resultados a veces catastróficos como dejar el servidor bloqueado. Ademas la programación asíncrona por eventos
  resulta la manera más sencilla, correcta y desacoplada de tratar con todos los aspectos anteriores.</p>
 
-<blockquote><p>Es decir, en este tipo de modelo de programación es muy difícil o fácilmente evitable programar MAL código de servidor.</p></blockquote>
+<blockquote><p>Es decir, en este tipo de modelo de programación es difícil o fácilmente evitable programar MAL código de servidor.</p></blockquote>
 
 <p>Ahora vamos a ver un ejemplo sencillo de código bloqueante, de esperas, de la cola de eventos y de timeouts. Veamos
 primero un ejemplo de código bloqueante, un "Hello World" con un bloque de código bloqueante.</p>
@@ -156,7 +156,7 @@ primero un ejemplo de código bloqueante, un "Hello World" con un bloque de cód
 <code>while</code> que comprueba el tiempo transcurrido. Pudiera ser un bloque que realiza una tarea computacionalmente intesiva o una lectura
 o escritura en disco de un fichero de gran tamaño o cualquier otra tarea bloqueante, lo importante del ejemplo es que si
 lo ejecutamos veremos como nuestro servidor de "Hola Mundo después de 10 segundos" queda bloqueado y es más bien un servidor
-de "Hola Mundo después de 10 segundo o mucho más". Atiende las peticiones en serie una detrás de otra.</p>
+de "Hola Mundo después de 10 segundos o mucho más". Atiende las peticiones en serie una detrás de otra.</p>
 
 <p>Vamos a ver ahora este mismo ejemplo pero utilizando código asíncrono no bloqueante, todo queda igual excepto el bloque de
 código bloqueante que ahora sería asíncrono</p>
@@ -222,7 +222,7 @@ conseguimos que el servidor no quede bloqueado y que el resto de tareas tengan o
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>La función <code>process.nextTick()</code> es un técnica sencilla de conseguir asincronicidad y evitar el bloqueo del servidor, otra forma
-hubiese sido utilizar un `setTimeout(0, ..)' con tiempo 0, otra forma posible forma
+hubiese sido utilizar un <code>setTimeout(0, ..)</code> con tiempo 0, otra forma posible forma
 hubiese sido emitir un evento propio y escuchar por ese evento, aunque no está nada claro el orden de ejecución de los eventos
 dentro de la cola de eventos, no he encontrado documentación al respecto...</p>
 
