@@ -9,8 +9,8 @@
   <meta name="author" content="Nicolas Nombela">
 
   
-  <meta name="description" content="El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
-post veremos algo de código que nos &hellip;">
+  <meta name="description" content="En la primera parte sobre Consistencia Eventual (EC): un modelo de consistencia de datos para una arquitectura distribuida,
+deje sin contar dos de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,59 @@ post veremos algo de código que nos &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/15/eventual-consistency-parte-ii/">Eventual Consistency, Parte II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-15T14:07:00+02:00" pubdate data-updated="true">May 15<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>En la primera parte sobre <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">Consistencia Eventual (EC)</a>: un modelo de consistencia de datos para una arquitectura distribuida,
+deje sin contar dos de los aspectos más importantes de la misma: <strong>la política de resolución de conflictos</strong>, y también, <strong>la política de propagación de los cambios</strong>.</p>
+
+<p>Antes de empezar, para concretar y generar un poco más de interés pongamos ejemplos de sistemas distribuidos que utilizan alguna forma de EC:</p>
+
+<ul>
+<li>Los sistemas de control de versiones distribuidos y muy en concreto <a href="http://git-scm.com/">Git</a> que es un caso paradigmático.</li>
+<li>Los sistemas de almacenamiento en la nube, por ejemplo <a href="http://www.dropbox.com">Dropbox</a>.</li>
+<li>Los juegos multiusuario en tiempo real, casi todos ellos.</li>
+<li>Los motores de búsqueda, cualquiera de ellos.</li>
+<li>Algunas Aplicaciones Web como las redes sociales, pongamos <a href="http://facebook.com">Facebook</a> o <a href="http://twitter.com">Twitter</a></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/05/15/eventual-consistency-parte-ii/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -381,6 +434,10 @@ de estos asistentes de edición que siempre me funcionan mal, para mi es más c�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/15/eventual-consistency-parte-ii/">Eventual Consistency, Parte II</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Asincronicidad en Node.js</a>
       </li>
     
@@ -394,10 +451,6 @@ de estos asistentes de edición que siempre me funcionan mal, para mi es más c�
     
       <li class="post">
         <a href="/blog/2012/02/14/groovy-closures-explicados-con-java/">Groovy closures explicados con Java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto de OOP tiene Javascript?</a>
       </li>
     
   </ul>
