@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Eventual Consistency | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/eventual-consistency/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-05-16T08:36:25+02:00</updated>
+  <updated>2012-05-16T09:06:54+02:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -39,7 +39,7 @@ deje sin contar dos de los aspectos más importantes de la misma: <strong>la pol
 pero eventualmente (en el tiempo) todos los observadores verán lo mismo (mejor dicho verán los mismos cambios).</p>
 
 <p>En todos estos sistemas por tanto puede haber conflictos durante la propagación de los cambios,
-y en todos existe una política de resolución de conflictos que resuelve este conflicto mediante la aplicación de reglas establecidas.</p>
+y en todos existe una política de resolución de conflictos que resuelve mediante la aplicación de reglas establecidas dicho conflicto.</p>
 
 <p>El modo de propagación de cambios se refiere a cómo los diferentes nodos sincronizan los datos entre si, en este punto hay mucha libertad,
 la propagación puede ser de tipo push/pull a petición del usuario (como el que utiliza git), de tipo periódico (sincronización automática cada cierto intervalo de tiempo)
