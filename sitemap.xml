@@ -2,42 +2,46 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://nnombela.github.com/blog/2012/02/11/sobre-este-blog/</loc>
-        <lastmod>2012-02-17T13:03:43+01:00</lastmod>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript/</loc>
-        <lastmod>2012-02-13T14:18:33+01:00</lastmod>
+        <lastmod>2013-01-22T16:54:02+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/02/14/groovy-closures-explicados-con-java/</loc>
-        <lastmod>2012-03-21T18:32:05+01:00</lastmod>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/02/17/eventual-consistency/</loc>
-        <lastmod>2012-05-15T14:40:08+02:00</lastmod>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/03/16/sobre-node-dot-js/</loc>
-        <lastmod>2012-03-21T12:05:01+01:00</lastmod>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/03/21/asincronicidad-en-node-dot-js/</loc>
-        <lastmod>2012-04-13T12:12:55+02:00</lastmod>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/2012/05/15/eventual-consistency-parte-ii/</loc>
-        <lastmod>2012-05-16T09:06:45+02:00</lastmod>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/</loc>
-        <lastmod>2012-05-16T09:06:45+02:00</lastmod>
+        <lastmod>2013-01-22T16:54:02+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://nnombela.github.com/robots.txt</loc>
+        <lastmod>2013-01-22T14:27:23+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/categories/</loc>
-        <lastmod>2012-05-16T09:06:45+02:00</lastmod>
+        <lastmod>2013-01-22T16:54:02+01:00</lastmod>
     </url>
     <url>
         <loc>http://nnombela.github.com/blog/archives/</loc>
-        <lastmod>2012-05-16T09:06:45+02:00</lastmod>
+        <lastmod>2013-01-22T16:54:02+01:00</lastmod>
     </url>
 </urlset>

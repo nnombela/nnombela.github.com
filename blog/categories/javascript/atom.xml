@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2012-05-16T09:06:54+02:00</updated>
+  <updated>2013-01-22T17:10:30+01:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -558,8 +558,8 @@ resolución de conflictos</strong>, lo dejo para una segunda parte de este post.
     <updated>2012-02-12T14:44:00+01:00</updated>
     <id>http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
     <content type="html"><![CDATA[<p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
-sentido de seguir un único paradigma de programación. Ciertamente JS es una mezcla de muchas cosas, aunque la raíz es
-para mi es, sin duda, la programación funcional (FP), tomando como base este paradigma su creador tomo prestados
+sentido de seguir un único paradigma de programación. Ciertamente JavaScript es una mezcla de muchas cosas, aunque la raíz es
+para mi, sin duda, la Programación Funcional (FP). Tomando como base este paradigma su creador tomo prestados
 conceptos y estilos de programación de otros lenguajes.</p>
 
 <p>Los lenguajes funcionales tienden a tener un estilo de programación declarativo, pero el creador de JS quiso preferenciar
@@ -607,7 +607,7 @@ lo necesita! Y en muchas ocasiones esto es cierto.</p>
 
 <h3>A) Al modo funcional:   <em>Un par de funciones extend() y inherits().</em></h3>
 
-<p><div><script src='https://gist.github.com/1768497.js?file='></script>
+<p><div><script src='https://gist.github.com/1768497.js'></script>
 <noscript><pre><code>function extend(dest, source) {
     for (var prop in source) {   // enumerable properties
         dest[prop] = source[prop];
@@ -637,7 +637,7 @@ aumentar (augment) un objeto con otro objeto, está será nuestra primera opció
 <p><strong>Para el 20% de los restantes casos</strong>, si pensándolo bien finalmente decidimos que lo que queremos es herencia pura y dura,
 utilizando la función anterior lo haríamos así:</p>
 
-<p><div><script src='https://gist.github.com/1789034.js?file='></script>
+<p><div><script src='https://gist.github.com/1789034.js'></script>
 <noscript><pre><code>var Point = inherits(Object, {
     constructor: function(x, y) {
         this.x = x;
@@ -705,7 +705,7 @@ el método <code>extend()</code> para herencia y el método <code>augment()</cod
 pero las terminologías FP y la OOP se solapan y tienen estas cosas, lo siento). El código además se presenta como una
 librería modularizada (con soporte CommonJS)</p>
 
-<p><div><script src='https://gist.github.com/1768435.js?file='></script>
+<p><div><script src='https://gist.github.com/1768435.js'></script>
 <noscript><pre><code>var OOP = (function() {
 
     var SLICE = Array.prototype.slice;
@@ -764,7 +764,7 @@ if (typeof exports !== 'undefined') { // CommonJS module support
 
 <p>Como ejemplo de uso de la librería anterior tenemos.</p>
 
-<p><div><script src='https://gist.github.com/1792721.js?file='></script>
+<p><div><script src='https://gist.github.com/1792721.js'></script>
 <noscript><pre><code>var OOP = require('./OOP.js');
 
 var Point = OOP.extend({
