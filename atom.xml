@@ -4,7 +4,7 @@
   <title><![CDATA[NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2013-01-22T17:10:30+01:00</updated>
+  <updated>2013-10-20T22:22:51+02:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -12,6 +12,164 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Fonética Inglesa. Monoptongos]]></title>
+    <link href="http://nnombela.github.com/blog/2013/09/30/fonetica-inglesa-monoptongos/"/>
+    <updated>2013-09-30T12:46:00+02:00</updated>
+    <id>http://nnombela.github.com/blog/2013/09/30/fonetica-inglesa-monoptongos</id>
+    <content type="html"><![CDATA[<p>El inglés tiene fame de tener un sistema vocálico endiablado, y ciertamente lo tiene, más teniendo en cuenta que el Inglés tiene decenas de dialectos que fundamentalmente se diferencian en la pronunciación de las vocales.</p>
+
+<p>Pero el problema para un hispanohablante que está aprendiendo inglés no es tanto la complejidad del sistema vocálico del Inglés como la simplicidad del sistema vocálico de su idioma materno: el Castellano. Éste está considerado como uno de los más simples que existe dentro de los idiomas más hablados, sino el más simple, y literalmente define el sistema canónico de vocales. Hasta donde yo sé sólo el Rumano se le parece en simplicidad, con las 5 vocales canónicas y dos vocales centrales (una de ellas el Schwa de la que hablaremos más tarde). De hecho si alguna vez te has preguntado por qué los rumanos tienen tanta facilidad para aprender el Castellano, ya tienes la respuesta, a los hispanohablantes les costaría un poco más hablar Rumano pero desde luego mucho menos que hablar Inglés, mala suerte.</p>
+
+<p>Ahora bien si conseguimos hacernos más o menos con el sistema vocálico del Inglés nuestro nivel del idioma va a pegar un fuerte estirón, se va a colocar en un nuevo nivel desde donde es mucho más fácil progresar. Claro que mucha gente opina que la pronunciación es la parte más difícil del Inglés, yo al contrario opino que es de la más fáciles ya que es un área acotada y su aprendizaje puede ser fácilmente sistematizado.</p>
+
+<p>Sorprendentemente el estudio de las vocales del Inglés se puede hacer utilizando un simple diagrama cartesiano, con sólo dos dimensiones más una característica añadida. Demasiado bueno para ser verdad, porque la realidad es que se trata de una representación idealizada, no encontrarás dos diagramas iguales de un idioma simplemente porque no existe uno correcto, lo que no implica que conocer uno sea extremadamente útil para entender y aprender un montón de cosas. Yo voy a utilizar una representación mía propia, donde hago alguna trampilla que luego explicaré pero con el único objetivo de resaltar algunos aspectos que considero interesantes.</p>
+
+<p>Las dos dimensiones del diagrama son:</p>
+
+<ol>
+<li><p>Eje X. <strong>Posición de la lengua</strong> (Tongue backness: <code>front</code>, <code>central</code>, <code>back</code>): Articulación de la vocal dentro de la cavidad bucal. La lengua es un músculo que según la forma que adopta determina donde se “siente” que se genera la vocal: en la parte frontal, central o posterior</p></li>
+<li><p>Eje Y. <strong>Apertura de la boca</strong> (Mouth height or closeness: <code>open</code>, <code>mid</code>, <code>close</code>): Altura de la lengua con respecto al paladar, no sólo la forma sino la altura es lo que determina el tamaño de la cavidad donde se produce la vocal y su sonido.</p>
+
+<p> Y la otra característica que hay que tener en cuenta es:</p></p></li>
+<li><p><strong>Redondeado de los labios</strong> (Lip roundedness: <code>rounded</code>, <code>unrounded</code>). Si se redondean los labios o no. La forma de los labios determina también el sonido vocálico.</p></li>
+</ol>
+
+
+<blockquote><p><strong>Nota</strong>: En vez del redondeado de labios yo voy a utilizar otro parámetro más sencillo y más preciso: <strong>La tensión de la comisura de los labios</strong>, si las separamos hacia atrás como en la <span class="vowel red">/i/</span> (los labios se estiran) o si las juntamos hacia adelante como en la <span class="vowel red">/u/</span> y los labios se comprimen (redondeándose). Voy a utilizar este parámetro porque es mucho más preciso, me permite distinguir entre 3 posibilidades: tensión para separarlos (frecuente en vocales frontales), tensión para juntarlos (frecuente en vocales posteriores) y no tensión (frecuente en las centrales).</p></blockquote>
+
+<p>Antes de ver qué pinta tienen los diagramas vocálicos del Castellano y del Inglés, comentar que las vocales en cualquier idioma tienen tendencia a moverse en el diagrama cardinal con el tiempo y a lo largo de su historia, la mayor parte de las veces por influencias externas, y el Inglés ha estado muy sometido a influencias externas y experimentado muchos cambios y algunos muy recientes, y actualmente está experimentándose de forma muy acusada debido fundamentalmente a dos fenómenos: la internacionalización del Inglés como idioma global y también, más recientemente, por el uso de Internet.</p>
+
+<p>Ahora bien en su movimiento más o menos errático por el diagrama tienen tendencia a seguir algunos principios de simetría y encontrar zonas de equilibrio, estos son:</p>
+
+<ol>
+<li><strong>Equidistancia</strong>. Las vocales tienden a gravitar dejando distancias equidistantes entre ellas. De esa forma son más fácilmente distinguibles</li>
+<li><strong>Congruencia</strong>. Las vocales tienen tendencia a asociarse en parejas contrapuestas según el eje X (lugar donde se produce la vocal).</li>
+<li><strong>Ocupamiento de bases</strong>. El diagrama define para todos los idiomas 5 zonas o bases: <code>a-base</code>, <code>e-base</code>, <code>i-base</code>, <code>o-base</code> y <code>u-base</code>, hay una tendencia a ocupar todas las bases con al menos una vocal</li>
+</ol>
+
+
+<p>Estas reglas te indican que cuando una vocal se mueve se mueven todas las demás para reorganizarse, es lo que le ocurrió al Inglés recientemente con lo que se ha llamado  “The Great Vowel Shift” (que desgraciadamente ha complicado todo el sistema vocálico del Inglés)</p>
+
+<p>Veamos primero el diagrama para el Castellano:</p>
+
+<p><img class="center" src="http://nnombela.github.com/images/fonetica/Monoptongos-Castellano.png"></p>
+
+<p>El Castellano es pura perfección, cumple perfectamente las 3 reglas que hemos comentado, define un sistema canónico, formando una <strong>V</strong> casi perfecta. Tiene 5 vocales separadas equidistantemente, dos parejas congruentes <code>i-u</code> y <code>e-o</code> y cada vocal ocupa una base.</p>
+
+<p>Casi no se puede mejorar, y ahí está el problema, es tan perfecto que parece que no pueda haber otro, hay que romper una barrera mental: Los idiomas puede tener y suelen tener más de 5 vocales, es una barrera mental que cuesta bastante romper.</p>
+
+<p>Ahora veamos el diagrama del Inglés, que es el dialecto Americano o GenAm (General American), escojo GenAm por varias razones: es el que mejor conozco y el que más influencia tiene sobre los demás.</p>
+
+<p>Veamos ahora el diagrama para el Inglés GenAm:</p>
+
+<p><img class="center" src="http://nnombela.github.com/images/fonetica/Monoptongos-Ingles.png"></p>
+
+<blockquote><p><strong>Nota 1</strong>: Sólo vamos a ver los monoptongos, que son los difíciles, los diptongos no presentan tantos problemas.</p>
+
+<p><strong>Nota 2</strong>: Para la caracterización fonética he utilizado la notación IPA, que utiliza símbolos latinos y griegos. Es muy muy aconsejable familiarizarse con esta notación.</p></blockquote>
+
+<p>Hay varias cosas que notamos a simple vista si lo comparamos con el diagrama del Castellano.</p>
+
+<ol>
+<li>Hay una explosión de vocales, hay muchas más, más del doble.</li>
+<li>La forma en <strong>V</strong> del Castellano parece que se ha escindido en dos <strong>U</strong>es separadas</li>
+<li>Hay una vocal central: el Schwa <span class="vowel blue">/ə/</span> presente en muchos idiomas pero no en el Castellano.</li>
+<li>Hay dos grupos de 6 vocales: uno que parece muy pegado a la periferia del diagrama y que llamaremos Periféricas porque parecen que definen los límites del propio diagrama, y otro grupo más central que llamaremos Centrales</li>
+<li>La regla de ocupación de bases se cumple y el de congruencia (parejas contrapuestas) parece que también <code>i-u</code>,  <code>ɪ-ʊ</code>, etc..)</li>
+</ol>
+
+
+<p>Lo interesante del diagrama es que hay muchas simetrías, que si las entendemos nos pueden ayudar muchísimo a identificar las vocales y a entenderlas un poco mejor.</p>
+
+<p>Para mi lo más interesante es que las vocales se agrupan en dos grandes grupos con características opuestas, que son</p>
+
+<p>A) <strong>Las vocales Periféricas</strong>: Lo más interesante es darse cuenta que son vocales que están muy en la periferia, casi en los límites de las posibilidades de vocalización. Es por eso que lo más distintivo es que son muy exageradas, incluso un pelín forzadas. Son o muy cerradas, o muy abiertas; y están o muy atrás o muy delante.</p>
+
+<p>Son <span class="vowel blue">/i/, /ɛ/, /æ/, /ɑ/, /ɔ/, /u/</span>. Son todas vocales más periféricas que las del Castellano, necesitan serlo ya que se tienen que diferenciar claramente de las otras vocales, las centrales.  El error más común al pronunciarlas es no exagerarlas (especialmente las frontales) con lo cual a oído de un angloparlante se pueden confundir con las centrales.</p>
+
+<p>B) <strong>Las vocales Centrales</strong>: Al contrario que las otras lo distintivo es que son mucho más neutras, más relajadas, incluso en ocasiones cuando están en una sílaba sin énfasis se pronuncian como la vocal central (el Schwa, que es una especie de vocal comodín). Son la <span class="vowel blue">/ɪ/,  /ɜ/, /ə/, /o/, /ʊ/</span>.  Es importante entender que son más neutras y relajadas que las vocales del Castellano</p>
+
+<p><strong>El Schwa</strong> <span class="vowel blue">/ə/</span>. Es la vocal totalmente central y es la auténtica vocal comodín del Inglés, es la vocal más común con diferencia, incluso sustituyendo a las otras dependiendo del énfasis,  hablaremos más adelante de ella en mayor profundidad.</p>
+
+<p>Otras cosas interesantes del diagrama:</p>
+
+<ol>
+<li>Las bases tienen a rellenarse con 2 vocales (una periférica y otra central), excepto la a-base que al ser la base base (valga la redundancia) del diagrama puede albergar 3 vocales (dos periféricas y una central).</li>
+<li>La vocales de las dos bases de arriba (i-base y u-base) forman una diagonal de 135º, mientras que las de las bases de enmedio (e-base y o-base) forman una diagonal en 90º. La base de abajo (a-base) acomoda las 3 vocales con forma de triángulo.</li>
+<li>Se respeta bastante bien la ley de congruencia y las vocales se pueden emparejar en parejas contrapuestas (i,u), (ɪ, ʊ), (ɛ, ɔ), (æ, ɑ)</li>
+</ol>
+
+
+<p>Para resumir, a la hora de pronunciar una vocal podemos forzar el mecanismo vocálico (lengua, mandíbula y boca)  o al contrario podemos relajarlo y pronunciarla de forma más neutra, cuando relajamos el mecanismo vocálico la vocal se centraliza. Una vez que tenemos esta noción clara y adquirimos la habilidad de “sentir” las vocales el sistema vocálico del Inglés emerge sin mucha dificultad.</p>
+
+<p><strong>Interferencias de Identidad</strong>. Para un español tanto forzar como relajar una vocal es algo “poco natural”, existen graves interferencias de identidad que impide que lo hagamos (nos hace sentir raros y ridículos y sólo lo hacemos cuando parodiamos a alguien). A mi por ejemplo me ocurre que cuando estoy hablando Inglés con un nativo no tengo muchas problemas de identidad pero cuando hablo Inglés con un español me aparecen y tengo tendencia a españolizar las vocales y a pronunciarlas mal. Esto tipo de interferencias son muy difíciles de superar.</p>
+
+<p>Reforzar la identidad personal y de grupo es la segunda función de un idioma, después de obviamente de la de comunicar, es una función social y es la mayor responsable de la explosión de dialectos y acentos de un idioma, tanto por motivos geográficos como sociales. Desafortunadamente esta segunda función de un idioma es también uno de los grandes obstáculos para aprender correctamente un nuevo idioma.</p>
+
+<blockquote><p><strong>¿Por qué el inglés tiene 2 grupos vocálicos tan diferentes?</strong> Bien en mi opinión tiene mucho que ver con el ritmo y la entonación del Inglés (el otro apartado importante de la Fonética Inglesa). El Inglés tiene un ritmo de tipo <code>stress-timed</code>, con mucha importancia en el énfasis, con “golpes” fuertes seguidos de uno o varios “golpes” suaves dejando el mismo tiempo entre los golpes fuertes, mientras que el Castellano es <code>syllable-timed</code>, menos importancia del énfasis, con una cadencia más monótona, más aburrida, dejando el mismo tiempo entre sílabas. De todo esto hablaré en el segundo de las tres entradas que quiero hacer de Fonética Inglesa, pero quiero señalar que creo hay una conexión entre ambos aspectos fonológicos.</p></blockquote>
+
+<p>Bien, vamos a ir ahora base por base, poniendo ejemplos y dando pistas de cómo pronunciar las vocales.</p>
+
+<blockquote><p><strong>Nota</strong>: Para no confundirlas las vocales inglesas van a ir en azul y las vocales del Castellano van a ir en rojo.</p></blockquote>
+
+<h2>i-base</h2>
+
+<p><img class="left" src="http://nnombela.github.com/images/fonetica/base-i.png"></p>
+
+<p>Empezamos por una sencilla que además nos va a permitir entender la mecánica que hay que seguir con las siguientes. En inglés hay dos vocales en esta base: <span class="vowel blue">/i/</span> y <span class="vowel blue">/ɪ/</span> .</p>
+
+<p>La vocal <span class="vowel red">/i/</span> del Castellano está enmedio, además ocurre una cosa curiosa mientras que es la <span class="vowel blue">/i/</span> inglesa la que nosotros percibimos como más cercana a la <span class="vowel red">/i/</span> del Castellano, ocurre lo contrario, un angloparlante percibe la <span class="vowel red">/i/</span> como su <span class="vowel blue">/ɪ/</span> central, y esa es la razón por la cual hay que tener especial cuidado con algunas palabras como <span class="vowel blue">beach, sheet o scene</span>. Conocí a un español que aún después de llevar 30 años viviendo en Canadá me confesó que eran palabras que había eliminado de su vocabulario.</p>
+
+<p>¿Cúal es el truco para pronunciarlas correctamente? Especialmente la <span class="vowel blue">/i/</span> (la que parece más fácil pero que en la práctica es la que más problemas da). Bueno la <span class="vowel blue">/i/</span> inglesa es muy gestual, al ser tan frontal y cerrada tienes que notar que la comisura de los labios se separan mucho y los labios se estiran al mismo tiempo, si no haces ese gesto exagerando la vocal probablemente la <span class="vowel blue">/i/</span> no va a salir bien.</p>
+
+<p>Por el contrario la <span class="vowel blue">/ɪ/</span> central es un vocal totalmente relajada, los labios quedan neutros y apenas se estiran, la lengua también se relaja un poco, quizás probando te salga más bien una <span class="vowel red">/e/</span> pero eso es porque para tu memoria gestual es algo nuevo y se confunde, fuerza el sonido <code>i-base</code> y repítelo hasta que lo tengas memorizado y te salga natural. Como ejercicio puedes probar a incluso juntar un poco la comisura de los labios y redondear la <span class="vowel blue">/ɪ/</span> y te saldrá una bonita <span class="vowel green">/y/</span> francesa, que no viene al caso, pero que ayuda a entender la mecánica de lo que queremos conseguir.</p>
+
+<p>Algunos pares mínimos (palabras que en su pronunciación sólo se diferencian en la vocal) son:</p>
+
+<ul>
+<li><span class="vowel blue">sheet - shit</span></li>
+<li><span class="vowel blue">beach - bitch</span></li>
+<li><span class="vowel blue">scene - sin</span></li>
+<li><span class="vowel blue">sheep - ship</span></li>
+<li><span class="vowel blue">eat - it</span></li>
+</ul>
+
+
+<p>Otro ejercicio interesante es repetir varias veces seguidas <span class="vowel blue">Eat it</span>, tienes que notar que la comisura de los labios se estiran hacia atrás en la primera <span class="vowel blue">/i/</span> y luego se relajan rápidamente hacia adelante en la segunda <span class="vowel blue">/ɪ/</span> para luego volverse a estirar, si no sientes ese movimiento en la comisura de los labios lo estás haciendo mal.</p>
+
+<p>Si crees que ya lo tienes, ahora prueba con <span class="vowel blue">Bitch beach</span> (que va al revés y es bastante más difícil)</p>
+
+<h2>u-base</h2>
+
+<p><img class="left" src="http://nnombela.github.com/images/fonetica/base-u.png"></p>
+
+<p>Seguimos con una base cerrada, pero ahora las vocales en vez de pronunciarse en la parte de delante se pronuncia el la parte de detrás en la cavidad bucal.</p>
+
+<p>De nuevo en Inglés hay dos vocales la <span class="vowel blue">/u/</span> y la <span class="vowel blue">/ʊ/</span>, que resulta que, no sorpresivamente, son congruentes (contrarias) a la <span class="vowel blue">/i/</span> y a <span class="vowel blue">/ɪ/</span> respectivamente, ahora ocurre lo contrario en cuanto a la percepción: la <span class="vowel red">/u/</span> del Castellano la percibe un angloparlante como su <span class="vowel blue">/u/</span> y ahora la que da problemas es la otra la <span class="vowel blue">/ʊ/</span>.</p>
+
+<p>De nuevo el truco para pronunciar la <span class="vowel blue">/u/</span> es juntar la comisura de los labios, esta vez cerrando y redondeando los labios aún más que con la <span class="vowel red">/u/</span> del Castellano, un poco más.</p>
+
+<p>Pero la díficil es la otra la <span class="vowel blue">/ʊ/</span>, pero si hemos sido capaces de sacar la <span class="vowel blue">/ɪ/</span> nos va resultar fácil sacarla, los labios apenas se redondean, quedan casi neutros, relajados, relajamos también un poco la lengua, si lo hacemos así de forma natural la vocal se mueve desde la parte posterior a la zona central.</p>
+
+<p>Para practicar podemos utilizar esta frase <span class="vowel blue">Look is Luke</span>, y repetirla una y otra vez, de nuevo tenemos que sentir de nuevo que la comisura de los labios se mueven, en la primera Look se usa la <span class="vowel blue">/ʊ/</span> y los labios quedan casi neutros (un pelín redondeados) y en la segunda Luke se usa <span class="vowel blue">/u/</span> y los labios se redondean exageradamente.</p>
+
+<p>Algunos pares mínimos son:</p>
+
+<ul>
+<li><span class="vowel blue">would - wood</span></li>
+<li><span class="vowel blue">look - Luke</span></li>
+<li><span class="vowel blue">full - fool</span></li>
+<li><span class="vowel blue">pull - pool</span></li>
+</ul>
+
+
+<h2>e-base</h2>
+
+<p><img class="left" src="http://nnombela.github.com/images/fonetica/base-e.png"></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Eventual Consistency, Parte II]]></title>
