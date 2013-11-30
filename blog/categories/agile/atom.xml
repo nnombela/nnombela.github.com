@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Agile | NN.blog.last()]]></title>
   <link href="http://nnombela.github.com/blog/categories/agile/atom.xml" rel="self"/>
   <link href="http://nnombela.github.com/"/>
-  <updated>2013-11-28T20:26:22+01:00</updated>
+  <updated>2013-11-30T11:02:05+01:00</updated>
   <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Agilescéptico]]></title>
-    <link href="http://nnombela.github.com/blog/2013/11/17/agilesceptico/"/>
-    <updated>2013-11-17T19:23:00+01:00</updated>
-    <id>http://nnombela.github.com/blog/2013/11/17/agilesceptico</id>
+    <link href="http://nnombela.github.com/blog/2013/08/17/agilesceptico/"/>
+    <updated>2013-08-17T19:23:00+02:00</updated>
+    <id>http://nnombela.github.com/blog/2013/08/17/agilesceptico</id>
     <content type="html"><![CDATA[<p>Lo confieso, me declaro “agilescéptico” y tengo que admitir que con el tiempo cada vez más, no <em>per se</em> sino más bien precavido y escéptico respecto a todo el circo que se ha montado alrededor de las metodologías ágiles.</p>
 
 <p>Me explico, en mi opinión en desarrollo software sólo hay dos cosas importantes:</p>
@@ -32,7 +32,7 @@
 
 <p>Con los programadores adecuados y dejándoles escribir el código que ellos consideren adecuado ya está casi todo hecho, la receta del éxito en desarrollo software ya estaría básicamente formulada. Y hablo del éxito técnico no comercial, esa es otra historia.</p>
 
-<blockquote><p>La única “agilidad” que importa es la que permite libremente a los <strong>programadores</strong> escribir, leer y cambiar <strong>código</strong> con rapidez (pero sin prisas).</p></blockquote>
+<blockquote><p>La única “agilidad” que importa en desarrollo software es la que permite libremente a los <strong>programadores</strong> escribir, leer y cambiar <strong>código</strong> con rapidez (pero sin prisas).</p></blockquote>
 
 <p>Ahora bien, lo primero que decidirán esos programadores (ellos y no otras personas) para poder escribir código de calidad serán las herramientas que van a utilizar, y de nuevo nos encontramos dos aspectos:</p>
 
