@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Groovy closures explicados con Java - NN.blog.last()</title>
+  <meta name="author" content="Nicolas Nombela">
+
+  
+  <meta name="description" content="Llevando 3 años usando Grails casi de continuo, en mi trabajo es habitual que me pregunten cuánto tiempo le llevaría a un javero de toda la vida &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="NN.blog.last()" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">NN.blog.last()</a></h1>
+  
+    <h2>// Mainly about programming stuff also anything may catch my interest.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="nnombela.com">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Groovy closures explicados con Java</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-02-14T11:26:00+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>11:26 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Llevando 3 años usando Grails casi de continuo, en mi trabajo es habitual que me pregunten cuánto tiempo le llevaría a un javero de toda la vida
+ponerse las pilas y coger ritmo en un proyecto en Grails. Yo siempre respondo lo mismo, Grails es un framework para hacer aplicaciones
+web, el javero, a veces muy a su pesar, está muy curtido en esto de probar y utilizar nuevos frameworks, de hecho encontrará Grails
+especialmente sencillo y fácil de utilizar, y si es de los que ha bregado a fondo con frameworks del universo (por extenso) Spring incluso
+te dirá que de sencillo que es no le parece un framework serio.</p>
+
+<p>Pero el mayor obstáculo y la verdadera dificultad de trabajar con Grails está en el lenguaje que se utiliza: Groovy. Siendo un
+lenguaje, Groovy te obliga a cambiar la forma de hacer las cosas y de pensar en ellas.
+Afortunadamente la curva de entrada de Groovy para un javero es muy suave, no es una renuncia de Java, es casi una evolución,
+al principio es habitual seguir programando igual que en Java y poco a poco ir incorparando la nueva sintáxis y la nueva forma de hacer las cosas.
+El tiempo para una adaptación plena varia con la persona, pero típicamente lleva varias semanas o incluso meses, depende de las ganas que le ponga.</p>
+
+<!-- more -->
+
+
+<p>Y de todas las dificultades la mayor que se va a encontrar, y probablemente la última en superar, será entender y usar adecuadamente el concepto de
+<code>Closure</code> en Groovy. Personalmente (es lo que a mi me ocurrió) creo que la mayor dificultad para entenderlo es que normalmente se explica
+en lenguaje convencional o natural, en Inglés o en Castellano, y dicho así no se pilla.</p>
+
+<p>Un ejercicio bastante didáctico, y que espero ayude a captar el concepto <code>Closure</code> más rápidamente a un javero, es intentar explicarlo en Java&hellip;</p>
+
+<p>Vamos a ello, para modelar los closures vamos a utilizar dos aspectos del lenguaje Java poco usados que son: las clases anonimas y las clases internas.</p>
+
+<p>De momento un <code>Closure</code> se puede modelar en Java como una interfaz, con un único método <code>execute()</code> que acepta un mapa de argumentos
+y devuelve un resultado.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">Closure</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">args</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Una implementación del método <code>forEach()</code> utilizando closures sería esta</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="n">Object</span> <span class="nf">forEach</span><span class="o">(</span><span class="n">Collection</span> <span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span><span class="o">,</span> <span class="n">Closure</span> <span class="n">closure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Object</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+</span><span class='line'>        <span class="n">args</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">args</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">,</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">closure</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">collection</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Y un ejemplo de uso en Java del anterior código sería el siguiente</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="c1">// First we build the a collection</span>
+</span><span class='line'>    <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;();</span>
+</span><span class='line'>    <span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hola&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Adios&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Then we traverse the collection</span>
+</span><span class='line'>    <span class="n">forEach</span><span class="o">(</span><span class="n">collection</span><span class="o">,</span> <span class="k">new</span> <span class="nf">Closure</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot; Caracola&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>En java usamos clases anónimas para crear el closure, pero la sintaxis como puede observarse no es muy intuitiva.
+En groovy el código anterior quedaría reducido a</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">[</span><span class="err">&#39;</span><span class="n">Hola</span><span class="err">&#39;</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">Adios</span><span class="err">&#39;</span><span class="o">].</span><span class="na">eachWithIndex</span> <span class="o">{</span> <span class="n">it</span><span class="o">,</span> <span class="n">index</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="n">println</span> <span class="s">&quot;$index : $it Caracola&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>Nota: El método <code>eachWithIndex()</code> debería de llamarse <code>each()</code> a secas, ver <a href="http://jira.codehaus.org/browse/GROOVY-1182">remove eachWithIndex</a></p></blockquote>
+
+<p>Si esto fuese todo, los closures no serían complicados de entender pero la cosa se complica cuando tenemos en cuenta el
+aspecto más interesante de los closures:
+<strong>los closures tienen acceso a las variables del contexto donde fueron creados</strong>. Para modelar esto en Java es necesario
+introducir una nueva entidad <code>Context</code>.
+En java existe algo parecido a los closures en el aspecto de llevar consigo el contexto donde fueron creados, que son las inner clases, y de hecho se metieron en la especificación
+final de Java con esta idea y con muchas dudas (que el tiempo a confirmado fundadas) sobre su utilidad.</p>
+
+<p>Vamos a modelar el contexto con un clase <code>Context</code> (qué basicamente es un mapa de variables) y el closure con una clase interna (inner class)
+que está vez no será una interfaz si no una clase abstracta. Los argumentos del método <code>execute()</code> serán en vez de un mapa un <code>Context</code>
+y podemos crear los argumentos usando el método <code>createArgs()</code> del objeto <code>Closure</code>. El objeto <code>Context</code> puede tener a su vez un
+contexto &ldquo;padre&rdquo;, pudiendo formar una cadena de contextos.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">Context</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Context</span> <span class="n">parent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">variables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Context</span><span class="o">(</span><span class="n">Context</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Context</span> <span class="nf">add</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Object</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">variables</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Traverse context chain</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">variables</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">name</span><span class="o">)?</span> <span class="n">variables</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span>
+</span><span class='line'>            <span class="n">parent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">?</span> <span class="n">parent</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Closure</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Context</span> <span class="n">args</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">public</span> <span class="n">Context</span> <span class="nf">createArgs</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="k">new</span> <span class="nf">Context</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Como podéis ver evidentemente la cosa se ha complidado&hellip;. veamos el método <code>forEach()</code> y el ejemplo de uso que prácticamente no han cambiado.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="n">Object</span> <span class="nf">forEach</span><span class="o">(</span><span class="n">Collection</span> <span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">Closure</span> <span class="n">closure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Object</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Context</span> <span class="n">args</span> <span class="o">=</span> <span class="n">closure</span><span class="o">.</span><span class="na">createArgs</span><span class="o">().</span>
+</span><span class='line'>            <span class="n">add</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">,</span> <span class="n">i</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">,</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">closure</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">collection</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Y el ejemplo de uso en Java</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;();</span>
+</span><span class='line'><span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hola&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">collection</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Adios&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Context</span> <span class="n">cxt</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Context</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span> <span class="c1">// No parent context</span>
+</span><span class='line'><span class="n">cxt</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">,</span> <span class="s">&quot;Caracola&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">forEach</span><span class="o">(</span><span class="n">collection</span><span class="o">,</span> <span class="n">cxt</span><span class="o">.</span><span class="na">new</span> <span class="nf">Closure</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Context</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span><span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;it&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">));</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Puede que la sintaxis de creación de las clases anónimas dentro de clases internas <code>cxt.new Closure()</code> no te sea familiar, no te preocupes no estás sólo,
+yo tuve que mirarlo de nuevo para escribir el post&hellip;</p>
+
+<p>En groovy el código anterior quedaría reducido a</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">def</span> <span class="n">name</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Caracola</span><span class="err">&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span><span class="err">&#39;</span><span class="n">Hola</span><span class="err">&#39;</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">Adios</span><span class="err">&#39;</span><span class="o">].</span><span class="na">eachWithIndex</span> <span class="o">{</span> <span class="n">it</span><span class="o">,</span> <span class="n">index</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="n">println</span> <span class="s">&quot;$index : $it $name&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Espero que el post te haya servido para entender un poco mejor que son los closures de Groovy, de manera que la próxima
+vez que veas un closure (recuerda que en Groovy podemos crear uno con la sintaxis simplificada de llaves cerradas <code>{ }</code>),
+te preguntes ¿Cuáles son sus argumentos? y ¿Cuál es su contexto? Y sobre todo aunque se parecen mucho no lo confundas con
+un método. El método tiene como contexto el objecto al que pertenece, el <code>Closure</code> tiene como contexto el ámbito donde fue creado.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Nicolas Nombela</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2012-02-14T11:26:00+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>11:26 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/groovy/'>groovy,</a>, <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/" data-via="nnombela" data-counturl="http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/" title="Previous Post: ¿Cuánto de OOP tiene Javascript?">&laquo; ¿Cuánto de OOP tiene Javascript?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/02/17/eventual-consistency/" title="Next Post: Eventual Consistency">Eventual Consistency &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fonetica-inglesa-monoptongos/">Fonética Inglesa. Monoptongos</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/17/agilesceptico/">Agilescéptico</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/15/eventual-consistency-parte-ii/">Eventual Consistency, Parte II</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Asincronicidad en Node.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/16/sobre-node-dot-js/">Sobre Node.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/17/eventual-consistency/">Eventual Consistency</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/14/groovy-closures-explicados-con-java/">Groovy closures explicados con Java</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto de OOP tiene Javascript?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/11/sobre-este-blog/">Sobre este blog</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/nnombela?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Nicolas Nombela -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nnombela';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/';
+        var disqus_url = 'http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

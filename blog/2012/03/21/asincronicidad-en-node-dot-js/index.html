@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Asincronicidad en Node.js - NN.blog.last()</title>
+  <meta name="author" content="Nicolas Nombela">
+
+  
+  <meta name="description" content="El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
+post veremos algo de código que nos &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="NN.blog.last()" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">NN.blog.last()</a></h1>
+  
+    <h2>// Mainly about programming stuff also anything may catch my interest.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="nnombela.com">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Asincronicidad en Node.js</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-03-21T11:53:00+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>11:53 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
+post veremos algo de código que nos permita entender un poco mejor que significa programar en un modelo monohilo asíncrono,
+en la segunda parte de post veremos un ejemplo de programación dirigida por eventos utilizando eventos propios.</p>
+
+<p>Tener un sólo hilo de ejecución para todo el código tiene varias consecuencias en nuestro código de las que hay que estar alerta, estas
+son:</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p>No puede haber código bloqueante o todo el servidor quedará bloqueado y esto incluye no responder a nuevas peticiones entrantes.
+Cualquier tarea que pueda dar lugar a esperas activas o simplemente su tiempo de ejecución sea demasiado grande debe ser tratado
+de manera asíncrona. Esto incluye muy especialmente
+todas las tareas que impliquen algún tipo de comunicación I/O, salida a red, a base de datos o incluso al sistema de ficheros. Si tenemos
+alguna tarea computacionalmente intensiva deberemos intentar trocearla en varios bloques o trocearla en el tiempo (time-slice) para
+darle respiro al servidor y que pueda atender otros bloques de código, afortunadamente esto último no es nada habitual.</p></li>
+<li><p>La asincronicidad implica que no sabemos cuándo ni en que orden se va a ejecutar el código, generalmente esto no es importante
+pero en ocasiones sí lo es y habrá que tenerlo en cuenta. En cuanto al cuándo lo más habitual será tener que tener en cuenta
+un posible evento de <code>timeout</code>, si estamos utilizando un modulo externo será tan simple como suscribirnos al evento, si es código
+propio utilizaremos la función <code>setTimeout()</code>. En cuanto al orden de ejecución, algo también poco habitual, si tenemos que controlarlo
+utilizaremos <code>callbacks</code> anidados o la función <code>process.nextTick()</code> para retrasar la ejecución dentro de la cola de eventos.
+Luego veremos ejemplos de utilización de estas funciones.</p></li>
+<li><p>En caso de error inesperado debemos capturarlo y controlar el posible estado en que haya podido quedar la ejecución
+del código. Muy especialmente en caso de haya recursos que no hayan sido liberados, haya tareas
+(bloques de código o <code>callbacks</code>) dependientes de la tarea que ha generado el error o tengamos una política de reintentos.
+Aunque si nuestro código es realmente
+asíncrono y dirigido por eventos la liberación de los recursos ocurrirá cuando salte el  correspondiente evento de <code>timeout</code> asociado al
+recurso o el <code>timeout</code> asociado a la tarea dependiente.</p></li>
+</ol>
+
+
+<p>Llegado a este punto uno puedo pensar que programar en un modelo mohilo asíncrono es mucho más difícil que programar en un modelo
+multihilo sincrono más tradicional, pero no es así por que para programar BIEN en servidor en cualquier de los dos modelos un programador
+tiene que tener siempre en la cabeza y tener en cuenta todos todos los aspectos anteriores, que se resumen en:</p>
+
+<ol>
+<li>Esperas y posibilidad de código bloqueante</li>
+<li>Eventos de <code>timeouts</code> en la comunicación I/O</li>
+<li>Capturas de errores inesperados, política de reintentos y liberación de recursos</li>
+</ol>
+
+
+<p>En la programación de servidor multihilo sincrona más tradicional todos estos aspectos quedan ocultos, no forman parte
+ del modelo de programación, en muchas muchísimas ocasiones no se tienen en cuenta, incluso por programadores expertos.
+ Erróneamente se puede llegar a pensar que la lógica que tiene que tener todo esto en cuenta no es necesaria en un primer
+ momento o es una forma de optimización prematura, además no resulta sencillo implementar la lógica de manera correcta.</p>
+
+<blockquote><p>Es decir, en este tipo de modelo de programación es muy fácil o casi inevitable programar MAL código de servidor.</p></blockquote>
+
+<p>En cambio en la programación de servidor monohilo asíncrono dirigida por eventos todos estos aspectos están presentes de serie
+ desde el princio, forman parte del modelo de programación, son mucho más evidentes y si no se tienen en cuenta el posible problema no pasa inadvertido y desde el principio
+ se manifiesta con resultados a veces catastróficos como dejar el servidor bloqueado. Ademas la programación asíncrona por eventos
+ resulta la manera más sencilla, correcta y desacoplada de tratar con todos los aspectos anteriores.</p>
+
+<blockquote><p>Es decir, en este tipo de modelo de programación es difícil o fácilmente evitable programar MAL código de servidor.</p></blockquote>
+
+<p>Ahora vamos a ver un ejemplo sencillo de código bloqueante, de esperas, de la cola de eventos y de timeouts. Veamos
+primero un ejemplo de código bloqueante, un &ldquo;Hello World&rdquo; con un bloque de código bloqueante.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;util&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">writeResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">});</span>
+</span><span class='line'>    <span class="nx">response</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">util</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;OnRequest ended&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">sleepSynch</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">startTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">startTime</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// do nothing</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nx">writeResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">util</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;OnRequest started&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">sleepSynch</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>   <span class="c1">// bloque síncrono</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// sleepAsynch(10, response)   // bloque asíncrono</span>
+</span><span class='line'>    <span class="c1">// sleepAsynchWithNextTick(10, response); // bloque asíncrono con nextTick</span>
+</span><span class='line'><span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8888</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Listening on port 8888&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>sleepSynch</code> es un bloque de código síncrono, espera activamente durante 10 segundos sin hacer nada, es un simple bucle
+<code>while</code> que comprueba el tiempo transcurrido. Pudiera ser un bloque que realiza una tarea computacionalmente intesiva o una lectura
+o escritura en disco de un fichero de gran tamaño o cualquier otra tarea bloqueante, lo importante del ejemplo es que si
+lo ejecutamos veremos como nuestro servidor de &ldquo;Hola Mundo después de 10 segundos&rdquo; queda bloqueado y es más bien un servidor
+de &ldquo;Hola Mundo después de 10 segundos o mucho más&rdquo;. Atiende las peticiones en serie una detrás de otra.</p>
+
+<p>Vamos a ver ahora este mismo ejemplo pero utilizando código asíncrono no bloqueante, todo queda igual excepto el bloque de
+código bloqueante que ahora sería asíncrono</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">sleepAsynch</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">doResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>La función <code>setTimeout()</code> es un función nativa asíncrona, muy frecuéntemente utilizada en Node.js para controlar
+tiempos de ejecución de código. Lo importante es ver que ahora nuestro servidor de &ldquo;Hola Mundo después de 10 segundos&rdquo; queda
+desbloqueado, ahora ya es capaz de responder a todas las peticiones de forma paralela (al menos de forma efectiva)</p>
+
+<p>Por último vamos a ver otra forma de conseguir la asincronicidad de forma menos óptima utizando la función <code>process.nextTick()</code>. Esta
+función acepta un bloque de código o <code>callback</code> que será ejecutado una vez vaciada la cola de eventos actual, mediante esta técnica
+conseguimos que el servidor no quede bloqueado y que el resto de tareas tengan oportunidad de ejecutarse.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">sleepAsynchWithNextTick</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">endTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">(</span><span class="kd">function</span> <span class="nx">check</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">endTime</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">check</span><span class="p">();</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">doResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">})()</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>La función <code>process.nextTick()</code> es un técnica sencilla de conseguir asincronicidad y evitar el bloqueo del servidor, otra forma
+hubiese sido utilizar un <code>setTimeout(0, ..)</code> con tiempo 0, otra forma posible forma
+hubiese sido emitir un evento propio y escuchar por ese evento, aunque no está nada claro el orden de ejecución de los eventos
+dentro de la cola de eventos, no he encontrado documentación al respecto&hellip;</p>
+
+<p>Espero que este ejemplo simple sirva para entender un poco mejor el modelo de programación de Node.js, en la segunda parte de este
+post veremos un ejemplo de programación dirigida por eventos propios</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Nicolas Nombela</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2012-03-21T11:53:00+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>11:53 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/node-dot-js/'>node.js</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/" data-via="nnombela" data-counturl="http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/16/sobre-node-dot-js/" title="Previous Post: Sobre Node.js">&laquo; Sobre Node.js</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/15/eventual-consistency-parte-ii/" title="Next Post: Eventual Consistency, Parte II">Eventual Consistency, Parte II &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fonetica-inglesa-monoptongos/">Fonética Inglesa. Monoptongos</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/17/agilesceptico/">Agilescéptico</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/15/eventual-consistency-parte-ii/">Eventual Consistency, Parte II</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/21/asincronicidad-en-node-dot-js/">Asincronicidad en Node.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/16/sobre-node-dot-js/">Sobre Node.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/17/eventual-consistency/">Eventual Consistency</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/14/groovy-closures-explicados-con-java/">Groovy closures explicados con Java</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/cuanto-de-oop-tiene-javascript/">¿Cuánto de OOP tiene Javascript?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/11/sobre-este-blog/">Sobre este blog</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/nnombela?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Nicolas Nombela -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nnombela';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/';
+        var disqus_url = 'http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
