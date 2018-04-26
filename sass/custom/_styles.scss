@@ -1,0 +1,27 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+.vowel {
+  display: inline-block;
+  background: #fff;
+  font-family: Arial;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 0.4em;
+  -moz-border-radius: 0.4em;
+  -ms-border-radius: 0.4em;
+  -o-border-radius: 0.4em;
+  border-radius: 0.4em;
+  padding: 0 .3em;
+  margin: -1px 0;
+}
+
+.red {
+  color: crimson;
+}
+.blue {
+  color: blue;
+}
+
+ul, ol {
+  margin-left: 2.5em;
+}
