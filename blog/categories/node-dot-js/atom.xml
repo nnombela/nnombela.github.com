@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: node.js | NN.blog.last()]]></title>
-  <link href="http://nnombela.com/blog/categories/node-dot-js/atom.xml" rel="self"/>
-  <link href="http://nnombela.com/"/>
-  <updated>2018-04-26T18:01:23+02:00</updated>
-  <id>http://nnombela.com/</id>
+  <link href="http://nnombela.github.io/blog/categories/node-dot-js/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.io/"/>
+  <updated>2018-04-26T18:22:57+02:00</updated>
+  <id>http://nnombela.github.io/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Asincronicidad en Node.js]]></title>
-    <link href="http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
+    <link href="http://nnombela.github.io/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
     <updated>2012-03-21T11:53:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
+    <id>http://nnombela.github.io/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
     <content type="html"><![CDATA[<p>El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
 post veremos algo de código que nos permita entender un poco mejor que significa programar en un modelo monohilo asíncrono,
 en la segunda parte de post veremos un ejemplo de programación dirigida por eventos utilizando eventos propios.</p>
@@ -211,9 +211,9 @@ post veremos un ejemplo de programación dirigida por eventos propios</p>
   
   <entry>
     <title type="html"><![CDATA[Sobre Node.js]]></title>
-    <link href="http://nnombela.com/blog/2012/03/16/sobre-node-dot-js/"/>
+    <link href="http://nnombela.github.io/blog/2012/03/16/sobre-node-dot-js/"/>
     <updated>2012-03-16T12:12:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/03/16/sobre-node-dot-js</id>
+    <id>http://nnombela.github.io/blog/2012/03/16/sobre-node-dot-js</id>
     <content type="html"><![CDATA[<p>En el <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">post</a> anterior comenté que <a href="htt://nodejs.org">Node.js</a> era la tecnología
 que más rápidamente he visto crecer en poco tiempo. Realmente
 a poco que uno lo siga, el fenómeno es abrumador. El sistema de paquetes de Node <a href="http://npmjs.org/">npm</a> tiene cerca

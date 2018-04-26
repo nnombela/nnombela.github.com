@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: groovy, | NN.blog.last()]]></title>
-  <link href="http://nnombela.com/blog/categories/groovy/atom.xml" rel="self"/>
-  <link href="http://nnombela.com/"/>
-  <updated>2018-04-26T18:01:23+02:00</updated>
-  <id>http://nnombela.com/</id>
+  <link href="http://nnombela.github.io/blog/categories/groovy/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.io/"/>
+  <updated>2018-04-26T18:22:57+02:00</updated>
+  <id>http://nnombela.github.io/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Groovy closures explicados con Java]]></title>
-    <link href="http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/"/>
+    <link href="http://nnombela.github.io/blog/2012/02/14/groovy-closures-explicados-con-java/"/>
     <updated>2012-02-14T11:26:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java</id>
+    <id>http://nnombela.github.io/blog/2012/02/14/groovy-closures-explicados-con-java</id>
     <content type="html"><![CDATA[<p>Llevando 3 años usando Grails casi de continuo, en mi trabajo es habitual que me pregunten cuánto tiempo le llevaría a un javero de toda la vida
 ponerse las pilas y coger ritmo en un proyecto en Grails. Yo siempre respondo lo mismo, Grails es un framework para hacer aplicaciones
 web, el javero, a veces muy a su pesar, está muy curtido en esto de probar y utilizar nuevos frameworks, de hecho encontrará Grails

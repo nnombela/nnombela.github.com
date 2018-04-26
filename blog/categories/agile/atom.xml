@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: agile | NN.blog.last()]]></title>
-  <link href="http://nnombela.com/blog/categories/agile/atom.xml" rel="self"/>
-  <link href="http://nnombela.com/"/>
-  <updated>2018-04-26T18:01:23+02:00</updated>
-  <id>http://nnombela.com/</id>
+  <link href="http://nnombela.github.io/blog/categories/agile/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.io/"/>
+  <updated>2018-04-26T18:22:57+02:00</updated>
+  <id>http://nnombela.github.io/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Agilescéptico]]></title>
-    <link href="http://nnombela.com/blog/2013/08/17/agilesceptico/"/>
+    <link href="http://nnombela.github.io/blog/2013/08/17/agilesceptico/"/>
     <updated>2013-08-17T19:23:00+02:00</updated>
-    <id>http://nnombela.com/blog/2013/08/17/agilesceptico</id>
+    <id>http://nnombela.github.io/blog/2013/08/17/agilesceptico</id>
     <content type="html"><![CDATA[<p>Lo confieso, me declaro “agilescéptico” y tengo que admitir que con el tiempo cada vez más, no <em>per se</em> sino más bien precavido y escéptico respecto a todo el circo que se ha montado alrededor de las metodologías ágiles.</p>
 
 <p>Me explico, en mi opinión en desarrollo software sólo hay dos cosas importantes:</p>

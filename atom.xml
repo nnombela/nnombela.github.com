@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[NN.blog.last()]]></title>
-  <link href="http://nnombela.com/atom.xml" rel="self"/>
-  <link href="http://nnombela.com/"/>
-  <updated>2018-04-26T18:01:23+02:00</updated>
-  <id>http://nnombela.com/</id>
+  <link href="http://nnombela.github.io/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.io/"/>
+  <updated>2018-04-26T18:22:57+02:00</updated>
+  <id>http://nnombela.github.io/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Fonética Inglesa. Monoptongos]]></title>
-    <link href="http://nnombela.com/blog/2013/09/30/fonetica-inglesa-monoptongos/"/>
+    <link href="http://nnombela.github.io/blog/2013/09/30/fonetica-inglesa-monoptongos/"/>
     <updated>2013-09-30T12:46:00+02:00</updated>
-    <id>http://nnombela.com/blog/2013/09/30/fonetica-inglesa-monoptongos</id>
+    <id>http://nnombela.github.io/blog/2013/09/30/fonetica-inglesa-monoptongos</id>
     <content type="html"><![CDATA[<p>El inglés tiene fama de tener un sistema vocálico endiablado, y ciertamente lo tiene, más teniendo en cuenta que tiene decenas de dialectos que fundamentalmente se diferencian en la pronunciación de las vocales.</p>
 
 <p>Pero el problema para un hispanohablante que está aprendiendo inglés no es tanto la complejidad del sistema vocálico del Inglés como la simplicidad del sistema vocálico de su idioma materno: el Castellano. Éste está considerado como uno de los más simples que existe dentro de los idiomas más hablados, sino el más simple, y literalmente define el sistema canónico de vocales. Hasta donde yo sé sólo el Rumano se le parece en simplicidad, con las 5 vocales canónicas y dos vocales centrales (una de ellas el Schwa de la que hablaremos más tarde). De hecho si alguna vez te has preguntado por qué los rumanos tienen tanta facilidad para aprender el Castellano ya tienes la respuesta, a los hispanohablantes les costaría un poco más hablar Rumano pero desde luego mucho menos que hablar Inglés, mala suerte.</p>
@@ -57,7 +57,7 @@
 
 <p>Veamos primero el diagrama para el Castellano:</p>
 
-<p><img class="center" src="http://nnombela.com/images/fonetica/Monoptongos-Castellano.png"></p>
+<p><img class="center" src="http://nnombela.github.io/images/fonetica/Monoptongos-Castellano.png"></p>
 
 <p>El Castellano es pura perfección, cumple perfectamente las 3 reglas que hemos comentado, define un sistema canónico, formando una <strong>V</strong> casi perfecta. Tiene 5 vocales separadas equidistantemente, dos parejas congruentes <code>i-u</code> y <code>e-o</code> y cada vocal ocupa una base.</p>
 
@@ -67,7 +67,7 @@
 
 <p>Veamos ahora el diagrama para el Inglés GenAm:</p>
 
-<p><img class="center" src="http://nnombela.com/images/fonetica/Monoptongos-Ingles.png"></p>
+<p><img class="center" src="http://nnombela.github.io/images/fonetica/Monoptongos-Ingles.png"></p>
 
 <blockquote><p><strong>Nota 1</strong>: Sólo vamos a ver los monoptongos, que son los difíciles, los diptongos no presentan tantos problemas.</p>
 
@@ -119,7 +119,7 @@
 
 <h2>i-base</h2>
 
-<p><img class="left" src="http://nnombela.com/images/fonetica/base-i.png"></p>
+<p><img class="left" src="http://nnombela.github.io/images/fonetica/base-i.png"></p>
 
 <p>Empezamos por una sencilla que además nos va a permitir entender la mecánica que hay que seguir con las siguientes. En inglés hay dos vocales en esta base: <span class="vowel blue">/i/</span> y <span class="vowel blue">/ɪ/</span> .</p>
 
@@ -144,7 +144,7 @@
 
 <h2>u-base</h2>
 
-<p><img class="left" src="http://nnombela.com/images/fonetica/base-u.png"></p>
+<p><img class="left" src="http://nnombela.github.io/images/fonetica/base-u.png"></p>
 
 <p>Seguimos con una base cerrada, pero ahora las vocales en vez de pronunciarse en la parte de delante se pronuncia el la parte de detrás en la cavidad bucal.</p>
 
@@ -168,7 +168,7 @@
 
 <h2>e-base</h2>
 
-<p><img class="left" src="http://nnombela.com/images/fonetica/base-e.png"></p>
+<p><img class="left" src="http://nnombela.github.io/images/fonetica/base-e.png"></p>
 
 <p>Si has llegado aquí es porque te ha ido bien con las dos anteriores, me alegro, porque se va a ir complicando hasta que lleguemos a la última: la <code>a-base</code>, que es la más difícil.</p>
 
@@ -186,7 +186,7 @@
 
 <h2>o-base</h2>
 
-<p><img class="left" src="http://nnombela.com/images/fonetica/base-o.png"></p>
+<p><img class="left" src="http://nnombela.github.io/images/fonetica/base-o.png"></p>
 
 <p>De nuevo hay dos vocales, aunque no está claro que la <span class="vowel blue">/o/</span> no sea en realidad un diptongo con la <span class="vowel blue">/ʊ/</span>, en mi opinión sí, y por eso la voy a representar mejor como <span class="vowel blue">/ow/</span> aunque en muchos sitios aparece como una vocal monoptonga. Yo no lo tengo claro.</p>
 
@@ -217,7 +217,7 @@
 
 <h2>a-base</h2>
 
-<p><img class="left" src="http://nnombela.com/images/fonetica/base-a.png"></p>
+<p><img class="left" src="http://nnombela.github.io/images/fonetica/base-a.png"></p>
 
 <p>Por fin hemos llegado a la última que también es la más difícil. Lo bueno es que si hemos entendido las anteriores estamos en buena disposición para entender ésta.</p>
 
@@ -270,9 +270,9 @@
   
   <entry>
     <title type="html"><![CDATA[Agilescéptico]]></title>
-    <link href="http://nnombela.com/blog/2013/08/17/agilesceptico/"/>
+    <link href="http://nnombela.github.io/blog/2013/08/17/agilesceptico/"/>
     <updated>2013-08-17T19:23:00+02:00</updated>
-    <id>http://nnombela.com/blog/2013/08/17/agilesceptico</id>
+    <id>http://nnombela.github.io/blog/2013/08/17/agilesceptico</id>
     <content type="html"><![CDATA[<p>Lo confieso, me declaro “agilescéptico” y tengo que admitir que con el tiempo cada vez más, no <em>per se</em> sino más bien precavido y escéptico respecto a todo el circo que se ha montado alrededor de las metodologías ágiles.</p>
 
 <p>Me explico, en mi opinión en desarrollo software sólo hay dos cosas importantes:</p>
@@ -316,9 +316,9 @@
   
   <entry>
     <title type="html"><![CDATA[Eventual Consistency, Parte II]]></title>
-    <link href="http://nnombela.com/blog/2012/05/15/eventual-consistency-parte-ii/"/>
+    <link href="http://nnombela.github.io/blog/2012/05/15/eventual-consistency-parte-ii/"/>
     <updated>2012-05-15T14:07:00+02:00</updated>
-    <id>http://nnombela.com/blog/2012/05/15/eventual-consistency-parte-ii</id>
+    <id>http://nnombela.github.io/blog/2012/05/15/eventual-consistency-parte-ii</id>
     <content type="html"><![CDATA[<p>En la primera parte sobre <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">Consistencia Eventual (EC)</a>, un modelo de consistencia de datos para una arquitectura distribuida,
 deje sin contar dos de los aspectos más importantes de la misma: <strong>la política de resolución de conflictos</strong>, y también, <strong>la política de propagación de los cambios</strong>.</p>
 
@@ -424,9 +424,9 @@ Esta tercera parte la dejo muy pendiente.</p>
   
   <entry>
     <title type="html"><![CDATA[Asincronicidad en Node.js]]></title>
-    <link href="http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
+    <link href="http://nnombela.github.io/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
     <updated>2012-03-21T11:53:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
+    <id>http://nnombela.github.io/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
     <content type="html"><![CDATA[<p>El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
 post veremos algo de código que nos permita entender un poco mejor que significa programar en un modelo monohilo asíncrono,
 en la segunda parte de post veremos un ejemplo de programación dirigida por eventos utilizando eventos propios.</p>
@@ -615,9 +615,9 @@ post veremos un ejemplo de programación dirigida por eventos propios</p>
   
   <entry>
     <title type="html"><![CDATA[Sobre Node.js]]></title>
-    <link href="http://nnombela.com/blog/2012/03/16/sobre-node-dot-js/"/>
+    <link href="http://nnombela.github.io/blog/2012/03/16/sobre-node-dot-js/"/>
     <updated>2012-03-16T12:12:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/03/16/sobre-node-dot-js</id>
+    <id>http://nnombela.github.io/blog/2012/03/16/sobre-node-dot-js</id>
     <content type="html"><![CDATA[<p>En el <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">post</a> anterior comenté que <a href="htt://nodejs.org">Node.js</a> era la tecnología
 que más rápidamente he visto crecer en poco tiempo. Realmente
 a poco que uno lo siga, el fenómeno es abrumador. El sistema de paquetes de Node <a href="http://npmjs.org/">npm</a> tiene cerca
@@ -723,9 +723,9 @@ motor V8 de Chrome.</p>
   
   <entry>
     <title type="html"><![CDATA[Eventual Consistency]]></title>
-    <link href="http://nnombela.com/blog/2012/02/17/eventual-consistency/"/>
+    <link href="http://nnombela.github.io/blog/2012/02/17/eventual-consistency/"/>
     <updated>2012-02-17T12:11:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/02/17/eventual-consistency</id>
+    <id>http://nnombela.github.io/blog/2012/02/17/eventual-consistency</id>
     <content type="html"><![CDATA[<p>La Consistencia Eventual (EC) es un modelo de consistencia de datos. EC es un tema realmente interesante. Aunque bautizado
 con este nombre en el ámbito de la replicación de datos de grandes BBDD distribuidas, la misma idea y técnicas similares
 se han estado aplicando, desde que existen, a cualquier tipo de sistema distribuido con necesidades de baja latencia y alta disponibilidad.</p>
@@ -828,9 +828,9 @@ resolución de conflictos</strong>, lo dejo para una segunda parte de este post.
   
   <entry>
     <title type="html"><![CDATA[Groovy closures explicados con Java]]></title>
-    <link href="http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java/"/>
+    <link href="http://nnombela.github.io/blog/2012/02/14/groovy-closures-explicados-con-java/"/>
     <updated>2012-02-14T11:26:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/02/14/groovy-closures-explicados-con-java</id>
+    <id>http://nnombela.github.io/blog/2012/02/14/groovy-closures-explicados-con-java</id>
     <content type="html"><![CDATA[<p>Llevando 3 años usando Grails casi de continuo, en mi trabajo es habitual que me pregunten cuánto tiempo le llevaría a un javero de toda la vida
 ponerse las pilas y coger ritmo en un proyecto en Grails. Yo siempre respondo lo mismo, Grails es un framework para hacer aplicaciones
 web, el javero, a veces muy a su pesar, está muy curtido en esto de probar y utilizar nuevos frameworks, de hecho encontrará Grails
@@ -1088,9 +1088,9 @@ un método. El método tiene como contexto el objecto al que pertenece, el <code
   
   <entry>
     <title type="html"><![CDATA[¿Cuánto de OOP tiene Javascript?]]></title>
-    <link href="http://nnombela.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
+    <link href="http://nnombela.github.io/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
     <updated>2012-02-12T14:44:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
+    <id>http://nnombela.github.io/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
     <content type="html"><![CDATA[<p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
 sentido de seguir un único paradigma de programación. Ciertamente JavaScript es una mezcla de muchas cosas, aunque la raíz es
 para mi, sin duda, la Programación Funcional (FP). Tomando como base este paradigma su creador tomo prestados
@@ -1380,9 +1380,9 @@ al menos haber despertado vuestro interés. Intentaré seguir en ello.</p>
   
   <entry>
     <title type="html"><![CDATA[Sobre este blog]]></title>
-    <link href="http://nnombela.com/blog/2012/02/11/sobre-este-blog/"/>
+    <link href="http://nnombela.github.io/blog/2012/02/11/sobre-este-blog/"/>
     <updated>2012-02-11T19:10:00+01:00</updated>
-    <id>http://nnombela.com/blog/2012/02/11/sobre-este-blog</id>
+    <id>http://nnombela.github.io/blog/2012/02/11/sobre-este-blog</id>
     <content type="html"><![CDATA[<h2>¿Por qué <a href="http://octopress.org/">Octopress</a> ?</h2>
 
 <p>Después de probar varias opciones online, finalmente me he decidido a utilizar Octopress, por varias razones</p>
