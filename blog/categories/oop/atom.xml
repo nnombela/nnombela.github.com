@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: oop | NN.blog.last()]]></title>
-  <link href="http://nnombela.github.io/blog/categories/oop/atom.xml" rel="self"/>
-  <link href="http://nnombela.github.io/"/>
-  <updated>2018-04-26T18:22:57+02:00</updated>
-  <id>http://nnombela.github.io/</id>
+  <link href="http://nnombela.github.com/blog/categories/oop/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2018-04-26T19:07:16+02:00</updated>
+  <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[¿Cuánto de OOP tiene Javascript?]]></title>
-    <link href="http://nnombela.github.io/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
+    <link href="http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
     <updated>2012-02-12T14:44:00+01:00</updated>
-    <id>http://nnombela.github.io/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
+    <id>http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
     <content type="html"><![CDATA[<p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
 sentido de seguir un único paradigma de programación. Ciertamente JavaScript es una mezcla de muchas cosas, aunque la raíz es
 para mi, sin duda, la Programación Funcional (FP). Tomando como base este paradigma su creador tomo prestados

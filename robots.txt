@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://nnombela.github.io/sitemap.xml 
+Sitemap: http://nnombela.github.com/sitemap.xml 

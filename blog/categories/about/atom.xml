@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: about | NN.blog.last()]]></title>
-  <link href="http://nnombela.github.io/blog/categories/about/atom.xml" rel="self"/>
-  <link href="http://nnombela.github.io/"/>
-  <updated>2018-04-26T18:22:57+02:00</updated>
-  <id>http://nnombela.github.io/</id>
+  <link href="http://nnombela.github.com/blog/categories/about/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2018-04-26T19:07:16+02:00</updated>
+  <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Sobre este blog]]></title>
-    <link href="http://nnombela.github.io/blog/2012/02/11/sobre-este-blog/"/>
+    <link href="http://nnombela.github.com/blog/2012/02/11/sobre-este-blog/"/>
     <updated>2012-02-11T19:10:00+01:00</updated>
-    <id>http://nnombela.github.io/blog/2012/02/11/sobre-este-blog</id>
+    <id>http://nnombela.github.com/blog/2012/02/11/sobre-este-blog</id>
     <content type="html"><![CDATA[<h2>¿Por qué <a href="http://octopress.org/">Octopress</a> ?</h2>
 
 <p>Después de probar varias opciones online, finalmente me he decidido a utilizar Octopress, por varias razones</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: javascript | NN.blog.last()]]></title>
-  <link href="http://nnombela.github.io/blog/categories/javascript/atom.xml" rel="self"/>
-  <link href="http://nnombela.github.io/"/>
-  <updated>2018-04-26T18:22:57+02:00</updated>
-  <id>http://nnombela.github.io/</id>
+  <link href="http://nnombela.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2018-04-26T19:07:16+02:00</updated>
+  <id>http://nnombela.github.com/</id>
   <author>
     <name><![CDATA[Nicolas Nombela]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Eventual Consistency, Parte II]]></title>
-    <link href="http://nnombela.github.io/blog/2012/05/15/eventual-consistency-parte-ii/"/>
+    <link href="http://nnombela.github.com/blog/2012/05/15/eventual-consistency-parte-ii/"/>
     <updated>2012-05-15T14:07:00+02:00</updated>
-    <id>http://nnombela.github.io/blog/2012/05/15/eventual-consistency-parte-ii</id>
+    <id>http://nnombela.github.com/blog/2012/05/15/eventual-consistency-parte-ii</id>
     <content type="html"><![CDATA[<p>En la primera parte sobre <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">Consistencia Eventual (EC)</a>, un modelo de consistencia de datos para una arquitectura distribuida,
 deje sin contar dos de los aspectos más importantes de la misma: <strong>la política de resolución de conflictos</strong>, y también, <strong>la política de propagación de los cambios</strong>.</p>
 
@@ -123,9 +123,9 @@ Esta tercera parte la dejo muy pendiente.</p>
   
   <entry>
     <title type="html"><![CDATA[Asincronicidad en Node.js]]></title>
-    <link href="http://nnombela.github.io/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
+    <link href="http://nnombela.github.com/blog/2012/03/21/asincronicidad-en-node-dot-js/"/>
     <updated>2012-03-21T11:53:00+01:00</updated>
-    <id>http://nnombela.github.io/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
+    <id>http://nnombela.github.com/blog/2012/03/21/asincronicidad-en-node-dot-js</id>
     <content type="html"><![CDATA[<p>El modelo de programación de Node.js es monohilo, asíncrono y dirigido por eventos. En esta primera parte del
 post veremos algo de código que nos permita entender un poco mejor que significa programar en un modelo monohilo asíncrono,
 en la segunda parte de post veremos un ejemplo de programación dirigida por eventos utilizando eventos propios.</p>
@@ -319,9 +319,9 @@ post veremos un ejemplo de programación dirigida por eventos propios</p>
   
   <entry>
     <title type="html"><![CDATA[Sobre Node.js]]></title>
-    <link href="http://nnombela.github.io/blog/2012/03/16/sobre-node-dot-js/"/>
+    <link href="http://nnombela.github.com/blog/2012/03/16/sobre-node-dot-js/"/>
     <updated>2012-03-16T12:12:00+01:00</updated>
-    <id>http://nnombela.github.io/blog/2012/03/16/sobre-node-dot-js</id>
+    <id>http://nnombela.github.com/blog/2012/03/16/sobre-node-dot-js</id>
     <content type="html"><![CDATA[<p>En el <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">post</a> anterior comenté que <a href="htt://nodejs.org">Node.js</a> era la tecnología
 que más rápidamente he visto crecer en poco tiempo. Realmente
 a poco que uno lo siga, el fenómeno es abrumador. El sistema de paquetes de Node <a href="http://npmjs.org/">npm</a> tiene cerca
@@ -427,9 +427,9 @@ motor V8 de Chrome.</p>
   
   <entry>
     <title type="html"><![CDATA[Eventual Consistency]]></title>
-    <link href="http://nnombela.github.io/blog/2012/02/17/eventual-consistency/"/>
+    <link href="http://nnombela.github.com/blog/2012/02/17/eventual-consistency/"/>
     <updated>2012-02-17T12:11:00+01:00</updated>
-    <id>http://nnombela.github.io/blog/2012/02/17/eventual-consistency</id>
+    <id>http://nnombela.github.com/blog/2012/02/17/eventual-consistency</id>
     <content type="html"><![CDATA[<p>La Consistencia Eventual (EC) es un modelo de consistencia de datos. EC es un tema realmente interesante. Aunque bautizado
 con este nombre en el ámbito de la replicación de datos de grandes BBDD distribuidas, la misma idea y técnicas similares
 se han estado aplicando, desde que existen, a cualquier tipo de sistema distribuido con necesidades de baja latencia y alta disponibilidad.</p>
@@ -532,9 +532,9 @@ resolución de conflictos</strong>, lo dejo para una segunda parte de este post.
   
   <entry>
     <title type="html"><![CDATA[¿Cuánto de OOP tiene Javascript?]]></title>
-    <link href="http://nnombela.github.io/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
+    <link href="http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
     <updated>2012-02-12T14:44:00+01:00</updated>
-    <id>http://nnombela.github.io/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
+    <id>http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
     <content type="html"><![CDATA[<p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
 sentido de seguir un único paradigma de programación. Ciertamente JavaScript es una mezcla de muchas cosas, aunque la raíz es
 para mi, sin duda, la Programación Funcional (FP). Tomando como base este paradigma su creador tomo prestados
