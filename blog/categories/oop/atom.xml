@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: oop | NN.blog.last()]]></title>
+  <link href="http://nnombela.github.com/blog/categories/oop/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2018-05-02T12:06:38+02:00</updated>
+  <id>http://nnombela.github.com/</id>
+  <author>
+    <name><![CDATA[Nicolas Nombela]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[¿Cuánto de OOP tiene Javascript?]]></title>
+    <link href="http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript/"/>
+    <updated>2012-02-12T14:44:00+01:00</updated>
+    <id>http://nnombela.github.com/blog/2012/02/12/cuanto-de-oop-tiene-javascript</id>
+    <content type="html"><![CDATA[<p>JavaScript se define como un lenguaje multi-paradigma, que es otra forma de decir que no es un lenguaje puro en el
+sentido de seguir un único paradigma de programación. Ciertamente JavaScript es una mezcla de muchas cosas, aunque la raíz es
+para mi, sin duda, la Programación Funcional (FP). Tomando como base este paradigma su creador tomo prestados
+conceptos y estilos de programación de otros lenguajes.</p>
+
+<p>Los lenguajes funcionales tienden a tener un estilo de programación declarativo, pero el creador de JS quiso preferenciar
+la sintaxis imperativa C-like común en muchos lenguajes (incluído Java), quizás para hacer más accesible el
+lenguaje, en cualquier caso, en JS es habitual ver ambos estilos mezclados. Siguiendo con esta extraña mezcla
+decidió, cómo no, añadir características de programación orientada a objectos (OOP en inglés) que tan de moda estaba
+en aquellos tiempos y añadió dos conceptos básicos de OOP: La definición de objeto y la herencia, y no mucho
+más&hellip; y además JS lo hace de un modo muy particular, veamos cómo:</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p><strong>Definición de objeto.</strong> <em>En JS se define un objeto como una agrupación desestructurada de propiedades/valor, nada más, un
+mapa de propiedades para entendernos. Es una definición extremadamente simple y es más una estructura de datos que un
+concepto OOP riguroso. No hay encapsulación. Algunos de estas propiedades serán funciones que son asignadas al objeto
+dinámicamente y éstas funciones pueden usarse como métodos del objeto, en este caso la función recibe un argumento implícito &ldquo;this&rdquo;
+cuyo valor es el objeto al que pertenece la función. Los objetos son creados utilizando, cómo no, una función constructora (que también es un objeto).</em></p></li>
+<li><p><strong>Herencia prototípica.</strong> <em>La herencia se consigue utilizando prototipos, que no son más que objetos (gran acierto)
+cuyas propiedades son compartidas por una &ldquo;familia&rdquo; de objetos creados utilizando la misma función constructora
+(otro objeto). El prototipo de un objeto no es más que una de sus propiedades (no enumerable), que además puede ser
+modificada posteriormente. A su vez los prototipos, como objetos que son, tienen su propio prototipo dando lugar a lo
+que se denomina cadena prototípica.</em></p></li>
+</ol>
+
+
+<p>En JavaScript las funciones son objetos y toda la semántica OOP gira entorno al concepto de objeto y al de función como objeto.
+Es en esta mezcla tan acertada y equitativa entre los conceptos función y objeto, donde está la magia de JavaScript, al menos en mi
+opinión. Otros lenguajes más OOP puros subordinan el concepto de función al de método del objeto, quedando así su
+importancia relegada y mal aprovechada&hellip; pero esto ya va más sobre gustos que otra cosa.</p>
+
+<p>Sin entrar en mucho más detalle, no pretendo que de la explicación anterior quede claro cómo hacer herencia OOP en JS
+pero sí la idea de que su implementación en el lenguaje está hecha de una forma muy simple, bastante flexible y en mi
+opinión (muy discutible) de una forma elegante y coherente, aunque el creador de JS descuidó, y mucho, los detalles (quizás por
+las prisas), y ya se sabe que las prisas son malas y que en los detalles se esconde el diablo&hellip;</p>
+
+<p>Esta simplicidad y flexibilidad de los conceptos OOP es uno de los grandes aciertos de JS pero también una de sus
+desventajas, ya que no resulta nada obvio cómo programar siguiendo un estilo OOP en JavaScript&hellip; pero en parte también
+esto puede ser una ventaja ya que OOP puede no ser la forma más adecuada para resolver un problema de programación. OOP no es un
+estilo imperativo en JS, es una opción, casi un patrón de diseño más&hellip; y la dificultad de uso es una forma del
+lenguaje, un tanto sutil, de decirle al programador que si no tiene claro como hacerlo es por que, probablemente ¡No
+lo necesita! Y en muchas ocasiones esto es cierto.</p>
+
+<p>Y bueno hecha la introducción veamos un par de formas para hacer OOP en Javascript.</p>
+
+<h3>A) Al modo funcional:   <em>Un par de funciones extend() y inherits().</em></h3>
+
+<p><div><script src='https://gist.github.com/1768497.js'></script>
+<noscript><pre><code>function extend(dest, source) {
+    for (var prop in source) {   // enumerable properties
+        dest[prop] = source[prop];
+    }
+    return dest;
+}
+
+function inherits(Parent, props) {
+    var Child = props.constructor || function() {};
+    delete props.constructor;  // Avoid copying constructor property later
+
+    Child.parent = Parent;
+    Child.prototype = Object.create(Parent.prototype, {
+        constructor: { value: Child, enumerable: false }
+    });
+
+    extend(Child.prototype, props);
+
+    return Child;
+}</code></pre></noscript></div>
+</p>
+
+<p><strong>Para el 80% de los casos</strong>, extender (extend) un objeto utilizando otro objeto, es probablemente la forma más fácil y en
+muchas ocasiones la más acertada de tener “herencia” sin hacer herencia, también se denomina “mezclar con” (mixin) o
+aumentar (augment) un objeto con otro objeto, está será nuestra primera opción a considerar, su uso es trivial.</p>
+
+<p><strong>Para el 20% de los restantes casos</strong>, si pensándolo bien finalmente decidimos que lo que queremos es herencia pura y dura,
+utilizando la función anterior lo haríamos así:</p>
+
+<p><div><script src='https://gist.github.com/1789034.js'></script>
+<noscript><pre><code>var Point = inherits(Object, {
+    constructor: function(x, y) {
+        this.x = x;
+        this.y = y;
+    },
+    // shared properties
+    desc : &#39;A single point&#39;,
+    // methods
+    toString: function () {
+        return &#39;(&#39; + this.x + &quot;, &quot; + this.y + &#39;)&#39;;
+    }
+});
+
+var ColorPoint = inherits(Point, {
+    constructor: function(x, y , color) {
+        ColorPoint.parent.prototype.constructor.call(this, x, y);
+        this.color = color;
+    },
+    // shared properties
+    desc: &#39;A single point plus color&#39;,
+    // methods
+    toString: function() {
+        return this.color + &quot; &quot; + ColorPoint.parent.prototype.toString.call(this);
+    }
+});
+
+
+var p = new Point(3, 2);
+var cp = new ColorPoint(1, 2, &quot;yellow&quot;);
+
+console.log(p.desc + &quot;: &quot; + p.toString());
+console.log(cp.desc + &quot;: &quot; + cp.toString());</code></pre></noscript></div>
+</p>
+
+<p>Lo que me gusta de esta sintaxis es que es muy limpia e intuitiva, se ve claramente lo que estás haciendo y ves al
+mismo tiempo y de forma agrupada la función constructora, las propiedades compartidas y los métodos.</p>
+
+<p>Especial atención a cómo se accede a los métodos y propiedades de la “clase padre” desde la “clase hija” .</p>
+
+<pre><code>    Child.parent.prototype.property;
+    Child.parent.prototype.functionName.call(this, args..);
+</code></pre>
+
+<p>Podríamos haber utilizado perfectamente (y quizás más correctamente) una versión más corta</p>
+
+<pre><code>    Parent.prototype.property;
+    Parent.prototype.functionName.call(this, args..);
+</code></pre>
+
+<p>Pero he preferido utilizar la propiedad añadida (no enumerable) <code>parent</code> de la función constructora por que es habitual
+añadir los métodos posteriormente, una vez hecha la definición, y en estos casos es conveniente no tener que recordar y hacer mención
+explicita a la función padre,  de cualquier forma la sintaxis es (discutiblemente) engorrosa, en la siguiente sección veremos una posible alternativa
+más sencilla y un poco más OOP (pero con inconvenientes que explicaré).</p>
+
+<hr />
+
+<p><br/></p>
+
+<h3>B) A un modo más OOP:  <em>Utilizando modularización y encapsulación.</em></h3>
+
+<p>Esta opción es una evolución de la anterior pero con un enfoque más orientado a objectos, en vez de utilizar funciones
+haremos que las las funciones constructoras extiendan de un objeto padre (OOP) que tiene como métodos
+el método <code>extend()</code> para herencia y el método <code>augment()</code> para extender (ya se que el cruce de nombres es un poco confuso
+pero las terminologías FP y la OOP se solapan y tienen estas cosas, lo siento). El código además se presenta como una
+librería modularizada (con soporte CommonJS)</p>
+
+<p><div><script src='https://gist.github.com/1768435.js'></script>
+<noscript><pre><code>var OOP = (function() {
+
+    var SLICE = Array.prototype.slice;
+
+    function extend(source) {
+        for (var prop in source) {   // enumerable properties
+            var value = source[prop];
+            // mark descriptor objects with type = &#39;descriptor&#39;
+            if (value.type === &#39;descriptor&#39;) { 
+                Object.defineProperty(this, prop, value);
+            } else {
+                this[prop] = value;
+            }
+        }
+        return this;
+    }
+
+    function bind(func) {
+        var obj = this;
+        return function() {
+            return obj[func].apply(obj, SLICE.call(arguments));
+        };
+    }
+
+    function inherits(props) {
+        var Parent = this;
+        var Child = props.constructor || function() {};
+
+        Child.parent = Parent;
+        Child.prototype = Object.create(Parent.prototype, {
+            constructor: { value: Child, enumerable: false },
+            parent: { value: function(name) {
+                var obj = Parent.prototype[name];
+                return obj &amp;&amp; obj.apply? obj.apply(this, SLICE.call(arguments, 1)) : obj;
+            }, enumerable: false}
+        });
+
+        delete props.constructor;  // Avoid copying constructor property
+        extend.call(Child.prototype, props);
+
+        return Child;
+    }
+
+    // Create OOP object by extending Object
+    return inherits.call(Object, {
+        augment: { type: &#39;descriptor&#39;, value: extend, enumerable: false },
+        extend: { type: &#39;descriptor&#39;, value: inherits, enumerable: false },
+        method: { type: &#39;descriptor&#39;, value: bind, enumerable: false }
+    });
+}());
+
+if (typeof exports !== &#39;undefined&#39;) { // CommonJS module support
+    exports = OOP;
+}</code></pre></noscript></div>
+</p>
+
+<p>Como ejemplo de uso de la librería anterior tenemos.</p>
+
+<p><div><script src='https://gist.github.com/1792721.js'></script>
+<noscript><pre><code>var OOP = require(&#39;./OOP.js&#39;);
+
+var Point = OOP.extend({
+    constructor: function(x, y) {
+        this.x = x;
+        this.y = y;
+    },
+    desc : &#39;A single point&#39;,
+    toString: function () {
+        return &#39;(&#39; + this.x + &quot;, &quot; + this.y + &#39;)&#39;;
+    }
+});
+
+// Now you can easily extend Point
+
+var ColorPoint = Point.extend({
+    constructor: function(x, y , color) {
+        //ColorPoint.parent.prototype.constructor.call(this, x, y);
+        this.parent(&#39;constructor&#39;, x, y);   // calling parent constructor
+        this.color = color;
+    },
+    desc: &#39;A single point plus color&#39;,
+    toString: function() {
+        // return this.color + &quot; &quot; + ColorPoint.parent.prototype.toString.call(this)
+        return this.color + &quot; &quot; + this.parent(&#39;toString&#39;);   // calling parent method
+    },
+    printLog: function() {
+        console.log(&#39;LOG: &#39; + this.toString());
+    }
+});
+
+var p = new Point(3, 2);
+var cp = new ColorPoint(1, 2, &quot;yellow&quot;);
+
+console.log(p.desc + &quot;: &quot; + p.toString());
+console.log(cp.desc + &quot;: &quot; + cp.toString());
+
+setTimeout(cp.method(&#39;printLog&#39;), 1000);</code></pre></noscript></div>
+</p>
+
+<p>El ejemplo es parecido al anterior en A) pero en vez de funciones utilizamos métodos (funciones de un objeto) y además he añadido una forma un
+poco más amigable de poder llamar a los metodos de la “clase padre” (prototipo de la función constructora), de manera
+que en vez de</p>
+
+<pre><code>    ColorPoint.parent.prototype.constructor.call(this, x, y);
+    ColorPoint.parent.prototype.toString.call(this);
+</code></pre>
+
+<p>Podemos, si queremos, usar de manera equivalente:</p>
+
+<pre><code>    this.parent('constructor', x, y);
+    this.parent('toString');
+</code></pre>
+
+<p>Esta segunda posibilidad aunque más intuitiva y sencilla tiene un inconveniente importante, las funciones método sólo
+podrán ser utilizadas ligándolas a objetos del
+&ldquo;mismo tipo&rdquo; (misma función constructora) al objeto al que pertenecen, es decir no podrán utilizarse como funciones desligadas
+con objetos que en su cadena prototípica no tengan la función <code>parent()</code> con la misma semántica, esto nos aleja de una programación funcional
+y nos acerca más a la programación OOP, pero bueno es opcional y dependiendo de nuestro diseño no tiene por qué ser negativo.</p>
+
+<p>Para facilitar la operación de ligar una funcion con el objeto al que pertenece he includo un método no enumerado
+dentro de la cadena prototípica que se llama <code>method()</code>, podéis ver su uso en el ejemplo para generar una función
+callback como argumento de un <code>setTimeout()</code>. Todo el tema de funciones, métodos y funciones ligadas es muy importante
+en JS y uno de los que más confusión genera especialmente al principio si se viene de programar en Java donde esta
+problemática no existe, como este post ya es bastante largo lo dejo para uno futuro.</p>
+
+<blockquote><p><strong>Un aviso,</strong> la herencia es probablemente el recurso más incorrectamente utilizado en programación OOP, especialmente
+en aquellos lenguajes más OOP puros que incitan a utilizarlo. Los diseños evolutivos son los que más padecen el uso
+o abuso de este recurso ya que la herencia es la decisión que más rigidez y difulcultad de cambio aportan a un diseño
+(si eres de los que ha utilizado herencia con profusión en un modelo de datos sabrás de lo que estoy
+hablando). Java se intentó proteger de este abuso no permitiendo la herencia múltiple y favoreciendo más el uso de
+interfaces, aún con todo incluso en las librerías estándar, especialmente en las más antiguas, es fácil ver este
+problema. Ver <a href="http://asserttrue.blogspot.com/2009/02/inheritance-as-antipattern.html">Inheritance as antipattern</a>, asi que&hellip; <br/>
+<strong>Use it at your own risk!</strong></p></blockquote>
+
+<p>JavaScript es un lenguaje muy incomprendido&hellip; espero que este post os haya servido para entenderlo un poco mejor o
+al menos haber despertado vuestro interés. Intentaré seguir en ello.</p>
+]]></content>
+  </entry>
+  
+</feed>

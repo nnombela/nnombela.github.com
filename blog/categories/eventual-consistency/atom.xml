@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: eventual consistency | NN.blog.last()]]></title>
+  <link href="http://nnombela.github.com/blog/categories/eventual-consistency/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2018-05-02T12:06:38+02:00</updated>
+  <id>http://nnombela.github.com/</id>
+  <author>
+    <name><![CDATA[Nicolas Nombela]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Eventual Consistency, Parte II]]></title>
+    <link href="http://nnombela.github.com/blog/2012/05/15/eventual-consistency-parte-ii/"/>
+    <updated>2012-05-15T14:07:00+02:00</updated>
+    <id>http://nnombela.github.com/blog/2012/05/15/eventual-consistency-parte-ii</id>
+    <content type="html"><![CDATA[<p>En la primera parte sobre <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">Consistencia Eventual (EC)</a>, un modelo de consistencia de datos para una arquitectura distribuida,
+deje sin contar dos de los aspectos más importantes de la misma: <strong>la política de resolución de conflictos</strong>, y también, <strong>la política de propagación de los cambios</strong>.</p>
+
+<p>Antes de empezar, para concretar y generar un poco más de interés pongamos ejemplos de sistemas distribuidos que utilizan alguna forma de EC:</p>
+
+<ul>
+<li>Los sistemas de control de versiones distribuidos y muy en concreto <a href="http://git-scm.com/">Git</a> que es un caso paradigmático.</li>
+<li>Los sistemas de almacenamiento en la nube, por ejemplo <a href="http://www.dropbox.com">Dropbox</a>.</li>
+<li>Los juegos multiusuario en tiempo real, casi todos ellos.</li>
+<li>Los motores de búsqueda, cualquiera de ellos.</li>
+<li>Algunas Aplicaciones Web como las redes sociales, pongamos <a href="http://facebook.com">Facebook</a> o <a href="http://twitter.com">Twitter</a></li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>En todos estos sistemas dos observadores del mismo pueden ver, en un momento dado, cosas distintas
+pero eventualmente (en el tiempo) todos los observadores verán lo mismo (mejor dicho verán los mismos cambios).</p>
+
+<p>En todos estos sistemas por tanto puede haber conflictos durante la propagación de los cambios,
+y en todos existe una política de resolución de conflictos que resuelve mediante la aplicación de reglas establecidas dicho conflicto.</p>
+
+<p>El modo de propagación de cambios se refiere a cómo los diferentes nodos sincronizan los datos entre si, en este punto hay mucha libertad,
+la propagación puede ser de tipo push/pull a petición del usuario (como el que utiliza git), de tipo periódico (sincronización automática cada cierto intervalo de tiempo)
+o puede ser dirigida por eventos como las de tipo pub/sub. Los nodos pueden tener una conexión permanente o establecer conexiones puntuales.
+Las conexiones pueden ser bidireccionales o en un sólo sentido (típica arquitectura web), etc&hellip;</p>
+
+<p>El modo de propagación de cambios no es importante en EC siempre y cuando se respete el principio de consistencia eventual:
+<strong>La consistencia de datos se alcanza en algún intervalo de tiempo (eventualmente)</strong>, es decir tiene que existir propagación de cambios.</p>
+
+<p>Lo que sí es importante para garantizar la consistencia de datos es <strong>la política de resolución de conflictos</strong>, porque la posibilidad de conflicto es el precio que hay que pagar en EC.
+Un precio barato como ya comenté en la primera parte del <a href="http://nnombela.com/blog/2012/02/17/eventual-consistency/">post</a>, ya que es a cambio de un montón de cosas estupendas: escalabilidad, tolerancia a fallos, posibilidad de modo offline, etc&hellip;</p>
+
+<p>En el caso concreto de los sistemas distribuidos de control de versiones, que probablemente todos hemos utilizado,
+todos sabemos que es un conflicto y cómo se resuelve, se resuelve a <em>manini</em> y en origen por el usuario, mezclando los cambios, quizás con alguna herramienta de mezclado.</p>
+
+<p>En el caso de los juegos multiusuario también puede haber conflictos, por ejemplo dos jugadores se disparan casi a la vez pero&hellip; <em>only one can win, my friend!</em>
+En estos casos puede ocurrir que alguno de los jugadores vea por un momento a su oponente muerto y un instante después el que está mordiendo
+el polvo sea el mismo y su oponente saliendo de rositas&hellip; <em>damn it!</em></p>
+
+<p>En el caso de las redes sociales también puede haber conflictos, podemos ver cómo después de haber comentado una noticia y
+creer que somos los primeros en hacerlo y de hecho verlo de esa manera, vemos posteriormente que no así y que alguien se nos ha adelantado con la misma ocurrencia&hellip;</p>
+
+<p>En el caso de los motores de búsqueda, pues ya se sabe, más que conflictos lo que puede haber es diferentes resultados para la misma búsqueda dependiendo de dónde geográficamente se realice.</p>
+
+<p>En realidad todos estos casos suelen ser casos extremos, casos que no son lo habitual, esa es una de las bazas de EC,
+los conflictos son excepcionales y no interfieren en el normal funcionamiento del sistema.</p>
+
+<p>Con riesgo de ser pesado, repito una vez más, la existencia de un conflicto durante la propagación de cambios no implica inconsistencia de datos
+ya que existe una política que determina sin ambigüedad cómo se resuelve el conflicto y
+cómo se propaga esta resolución (otra cosa es que esta política sea la más acertada para el sistema en concreto)</p>
+
+<p>Para quien piense que no todos los sistemas pueden admitir EC y posibilidad de conflicto, sólo un dato,
+no se me ocurre nada más sensible que el código de una aplicación (pensemos en una aplicación militar o de un banco como casos extremos) y
+ya hace tiempo que la política de bloqueo de recursos en los sistemas de control de versiones cayó en desgracia&hellip;</p>
+
+<p>Un sistema muy sensible a la inconsistencia de datos tendrá mecanismos de control, testeo unitario, de integración, etc..
+En el caso de un banco, doble y triple contabilidad, etc.. Los tendrá no por que utilice EC si no por que incluso utilizando otros
+modelos de consistencia “más garantistas” necesita, aún con todo, de estos mecanismos de control de la consistencia</p>
+
+<p>Veamos entonces algunas posibles políticas de resolución de conflictos:</p>
+
+<p>1) <strong>Mezclado automático, versionado y marcado como conflicto.</strong> Resolución en cliente.
+Este es el más habitual en los sistemas de control de versiones y en la mayor parte de los sistemas de almacenamiento distribuido.
+Los cambios se versionan y se intentan mezclar de forma automática y si no se consigue se marcan como <em>en conflicto</em>, se guardan ambas versiones.
+Al nodo origen se le avisa de la situación y se espera que de forma activa la solucionen y propaguen el cambio.</p>
+
+<p>2) <strong>Timestamp en origen.</strong> Este es el más habitual en los juegos multijugador y uno de los más sencillos.
+Todos los cambios se propagan con un timestamp en origen (que tiene que estar sincronizado en todos los nodos),
+cuando existe un conflicto prevalece el cambio con mayor o menor timestamp (al gusto), se resuelve en servidor y la resolución se propaga de vuelta a los nodos origen.</p>
+
+<p>3) <strong>Prioridad en origen.</strong> a los nodos origen (donde se originan los cambios) se les da una prioridad distinta,
+en caso de que exista conflicto durante la propagación prevalece el cambio del nodo con mayor prioridad, la resolución se propaga de vuelta.</p>
+
+<p>Hay muchos otras y en realidad cada sistema distribuido que quiera utilizar alguna forma de EC deberá diseñar su propia política de resolución específica de la aplicación
+y que mejor resultado pueda dar. Esta política es absolutamente clave para el éxito de este tipo de modelo de consistencia.</p>
+
+<p>Una cosa importante es que los conflictos se pueden resolver en todos los nodos (que tengan estado): en origen, en nodos intermedios o en los nodos de datos finales
+(la consistencia se alcanza en todos los nodos), y su resolución también se propaga como otro cambio. La política de resolución y propagación puede ser distinta
+dependiendo del tipo de nodo pero su aplicación tiene que garantizar la consistencia, y aquí es donde hay que ser muy cuidadosos o podemos encontrarnos con una situación de tipo ping-pong.</p>
+
+<p>Lo mejor es que sea bien el nodo origen (caso de los sistemas de control de versiones) o bien el nodo final (casos de los juegos multiusuarios) quien
+resuelva el conflicto lo antes posible y en el menor tiempo posible y propague dicho cambio.</p>
+
+<p>Bueno, con esta segunda parte cierro este tema de momento. Es un tema que da mucho de si especialmente en estos momentos en
+los que este modelo de consistencia de datos está llegando a aplicaciones modestas y con bajo presupuesto pero que tienen vocación de crecer y hacerlo muy rápidamente.
+Además se empiezan a ofrecerse servicios distribuidos en la nube (también económicamente elásticos) con arquitecturas que utilizan estos
+principios de consistencia (muy en particular los que ofrece Amazon y Windows Azure, en esto Google y especialmente Apple van por detŕas)</p>
+
+<p>Quizás en algún momento me anime hacer algún prototipo de aplicación web con este tipo de arquitectura y con todos los elementos clave:
+nodo cliente (con estado), nodo servicio (sin estado) y nodo de datos (con estado distribuido) y política de resolución de conflictos en nodo cliente por el usuario (que es la que más me gusta).</p>
+
+<p>Como adelanto, hoy por hoy y para un prototipo utilizaría: para el nodo cliente utilizaría <a href="http://documentcloud.github.com/backbone/">Backbone.js</a>, para el servicio sin estado <a href="http://nodejs.org/">Node.js</a>
+(y algún módulo para servicios REST como <a href="http://mcavage.github.com/node-restify/">Restify</a>) y para la base de datos <a href="http://couchdb.apache.org/">CouchDB</a>
+ con alguna vista Map/Reduce chula y quizás sincronización
+automática de datos con los nodos cliente (hasta donde sé CouchDB es el único que ofrece esto con cosas como <a href="https://github.com/mikeal/pouchdb">PouchDB</a> para el navegador y
+<a href="https://github.com/couchbaselabs/TouchDB-iOS">TouchDB-iOS</a> y <a href="https://github.com/couchbaselabs/TouchDB-Android">TouchDB-Android</a> para dispositivos móviles).
+En cualquier caso como veis todo estaría con JavaScript y JSON, y ojo al dato, serían todas tecnologías que aún no están maduras&hellip;
+Esta tercera parte la dejo muy pendiente.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Eventual Consistency]]></title>
+    <link href="http://nnombela.github.com/blog/2012/02/17/eventual-consistency/"/>
+    <updated>2012-02-17T12:11:00+01:00</updated>
+    <id>http://nnombela.github.com/blog/2012/02/17/eventual-consistency</id>
+    <content type="html"><![CDATA[<p>La Consistencia Eventual (EC) es un modelo de consistencia de datos. EC es un tema realmente interesante. Aunque bautizado
+con este nombre en el ámbito de la replicación de datos de grandes BBDD distribuidas, la misma idea y técnicas similares
+se han estado aplicando, desde que existen, a cualquier tipo de sistema distribuido con necesidades de baja latencia y alta disponibilidad.</p>
+
+<p>La consistencia de datos es una propiedad importante en cualquier sistema, sin ella su estado puede no estar
+correctamente definido y su comportamiento volverse impredecible. Idealmente sólo existiría un modelo de
+consistencia: cuando hay un cambio en los datos del sistema todos los posibles observadores del sistema ven ese cambio
+al mismo tiempo.  Este modelo es el que se denomina Consistencia Inmediata.</p>
+
+<!-- more -->
+
+
+<p>La Consistencia Inmediata es el modelo habitual en la mayoría de los sistema y en particular en las aplicaciones web
+de pequeño-mediano tamaño e incluso de gran tamaño.. pero no en las mega infraestructuras de las herramientas de los
+grandes empresas de Internet, como Google, Amazon o en las de las grandes redes sociales como Twiter o Facebook. En estos
+sistemas altamente distribuidos es necesario algún tipo de modelo de Consistencia Eventual.</p>
+
+<p>En el modelo EC la consistencia de datos no se alcanza inmediatamente para todos los observadores del sistema al mismo tiempo,
+sino en un intervalo de tiempo no determinado, es decir, eventualmente. Existe una propagación en el tiempo de los
+cambios del sistema y una política de resolución de conflictos en caso de que los hubiese (situación que ocurre con
+mucha menos frecuencia de lo que pudiera pensarse). En cualquier caso existe una garantía de consistencia eventual
+en el tiempo de los datos, y esto es lo importante.</p>
+
+<p>EC es un modelo que tiene gran importancia en los sistemas distribuidos y especialmente en aquellos que buscan baja
+latencia, alta disponibilidad, alta escalabilidad y alta tolerancia a fallos, es decir, todos, ya que por definición
+un sistema distribuido más tarde o más temprano se encontrará con alguno o todos estos problemas,
+ver <a href="http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing">Fallacies of Distributed Computing</a></p>
+
+<p>La consistencia eventual es un típico trade-off de ingeniería, es renunciar a algo que pensabas que era más importante
+para el sistema de lo que realmente es, a cambio de tener otras cualidades que realmente sí son necesarias. ¿Cuál es
+la renuncia? Se renuncia a tener una consistencia de datos inmediata en todo el sistema y en un mismo momento, jugando
+con la variable tiempo conseguimos que nuestro sistema distribuido (en el espacio) sea mejor ahí donde más le duele:
+latencia, disponibilidad, escalado y tolerancia a fallos ¡Valla chollo no! Vamos a ver con algunos ejemplos en qué
+consiste y cómo conseguirlo.</p>
+
+<p>Hay que tener en cuenta que desde el momento que una aplicación tiene un cliente y un servidor es un sistema
+distribuido, el <code>nodo cliente</code> puede mantener unos datos (un estado) distinto de los que tiene el <code>nodo servidor</code> y
+eventualmente sincronizar este estado con él. No es lo habitual en la mayor parte de las aplicaciones web clásicas
+donde el estado de la aplicación está en servidor, pero sí es más habitual en un nuevo modelo de arquitectura web
+que está surgiendo con fuerza de aplicación JavaScript corriendo en su totalidad en cliente (navegador) y sincronizando
+datos eventualmente con el servidor (de forma asíncrona utilizando AJAX). Servidor que a su vez puede tener los datos
+en un sistema externo tipo DHT (Distributed Hash Table) o similar que utilice replicación siguiendo un modelo de
+consistencia eventual.</p>
+
+<p>Este tipo de arquitecturas distribuidas destacan por tener:</p>
+
+<ul>
+<li><p><strong>Baja latencia</strong>, <em>el usuario ve los cambios inmediatamente, ya que ocurren primero en cliente y luego estos
+cambios se van propagando por el sistema.</em></p></li>
+<li><p><strong>Alta disponibilidad y tolerancia a fallos</strong>, <em>de nuevo la aplicación corre básicamente en cliente, pudiendo
+funcionar, al menos en parte, en modo offline. Los servicios son stateless y los datos están replicados</em></p></li>
+<li><p><strong> Alta capacidad de escalado</strong>, <em>la aplicación corre en local, los servicios externos son sin estado  y los datos
+están distribuidos en nodos que siguen modelo de consistencia eventual donde los cambios se van propagando por los nodos.</em></p></li>
+</ul>
+
+
+<p>¿Cuáles son las claves tecnológicas de estos sistemas distribuidos? Pero muy especialmente cuando se trata de aplicaciones
+web (y aplicaciones multi-dispositivo).</p>
+
+<ol>
+<li><p><em>JavaScript en el <code>nodo cliente</code>: navegador, tablet, smartphone, TV&hellip; pero  incluso en las aplicaciones desktop del próximo
+Windows 8 (por cierto que aquí MS está teniendo mucho más clara las ideas que otros y en algunos aspectos va un paso por delante).</em></p></li>
+<li><p><em>De nuevo JavaScript en medio, en la <code>nube de servicios</code> (que no capa&hellip;). ¿De nuevo JavaScript? Aquí probablemente habré
+cogido con el pie cambiado a más de uno. Node.js es la tecnología con más “hype” y que más rápidamente estoy viendo crecer, y
+ya he visto unas cuantas. Es una de las tecnologías que mejor encajan, hay varias razones: los servicios idealmente deben ser
+sin estado, asíncronos, y mejor con REST y JSON, pero estas razones merecen un post aparte&hellip; como avance diré que también
+tienen que ver mucho con 1) y con 3). (De nuevo aquí la plataforma Windows Azure sorpresivamente parece ir un paso por delante).</em></p></li>
+<li><p><em>NoSQL en los <code>nodos de datos</code> y muy en particular aquellas que tienen como tecnología subyacente algún tipo
+de DHT o similar (casi todas) y vistas Map/Reduce (vistas de datos),  por supuesto ambas con un modelo de consistencia
+de datos eventual (tanto en los datos como en las vistas), que es el tema que da título a este post. Lo ideal es utilizar
+aquí también JSON, con lo que de nuevo es ideal utilizar también aquí JavaScript en las funciones Map y Reduce (de las
+que hablaré en otro post), por aquello de que JS es un lenguaje funcional sencillo y también por homogeneidad con el resto de nodos.</em></p></li>
+</ol>
+
+
+<p>Es un cambio de paradigma donde en vez de tener un sistema de varias capas que desde fuera (para los observadores del sistema)
+parece un único nodo, se tienen muchos nodos distribuidos, con un nodo cliente casi autónomo (con mayor o menor capacidad
+de funcionar offline), que se comunica de forma eventual y asíncrona con multitud de pequeños nodos que proporcionan servicios
+sin estado en la nube y finalmente un estado almacenado en nodos distribuidos DHT que utilizan un modelo de consistencia
+eventual. JavaScript y JSON son el pegamento de esta arquitectura y no olvidemos que es el único lenguaje que corre de forma
+nativa en la mayoría de los navegadores y múltiples dispositivos.</p>
+
+<p>Actualmente estamos entrando en una etapa que algunos denominan Polyglot, con múltiples lenguajes y tecnologías en un mismo
+sistema, que previsiblemente se mantendrá durante un tiempo, pero teniendo en cuanta la fuerza con la que vienen las nuevas
+tecnologías JavaScript y su vocación multi-paradigma y multi-plataforma, pues no sé si va a ser una etapa transitoria
+o qué va a pasar. Desde luego el futuro en este mundo de las tecnologías Internet ha demostrado ser cualquier cosa
+menos predecible&hellip; Y si no ¿Quién iba a decirle al creador de JavaScript que su lenguaje iba a tener un segundo hype
+tan fuerte como está teniendo más de 20 años después?</p>
+
+<blockquote><p>Una nota, JavaScript es un lenguaje con muchas deficiencias, pero actualmente existen algunas iniciativas de hacerlo
+avanzar (JS.next), como son ES Harmony, CoffeScript o Google Dart, todas ellas compatibles o que compilan a JS.</p></blockquote>
+
+<p>Mi intención al inicio de este post era hablar exclusivamente de Consistencia Eventual, un modelo poco conocido,
+al menos con este nombre, pero que considero muy interesante conocer y entender, especialmente para ser utilizado en aplicaciones
+distribuidas, finalmente he acabado hablando un poco de muchas otras cosas y me he dejado cosas por contar, en concreto,
+ver algunos ejemplos concretos de aplicaciones distribuidas y explicar una parte fundamental de EC que es la <strong>política de
+resolución de conflictos</strong>, lo dejo para una segunda parte de este post.</p>
+]]></content>
+  </entry>
+  
+</feed>
