@@ -1,8 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24c8b204-e2f4-4fb1-aba5-689218d19144" name="Default" comment="missing green class definition">
+    <list default="true" id="24c8b204-e2f4-4fb1-aba5-689218d19144" name="Default" comment="Merge branch 'master' of https://github.com/nnombela/nnombela.github.com&#10;&#10;# Conflicts:&#10;#&#9;atom.xml&#10;#&#9;blog/categories/about/atom.xml&#10;#&#9;blog/categories/agile/atom.xml&#10;#&#9;blog/categories/arquitectura/atom.xml&#10;#&#9;blog/categories/eventual-consistency/atom.xml&#10;#&#9;blog/categories/fonetica-ingles/atom.xml&#10;#&#9;blog/categories/groovy/atom.xml&#10;#&#9;blog/categories/java/atom.xml&#10;#&#9;blog/categories/javascript/atom.xml&#10;#&#9;blog/categories/metodologias/atom.xml&#10;#&#9;blog/categories/node-dot-js/atom.xml&#10;#&#9;blog/categories/octopress/atom.xml&#10;#&#9;blog/categories/oop/atom.xml&#10;#&#9;sitemap.xml&#10;#&#9;stylesheets/screen.css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/_deploy/CNAME" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/background.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/blankButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/divider.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/fullscreenButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/fullscreenButtonOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/muteButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/muteButtonOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/normalscreenButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/normalscreenButtonOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/pauseButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/pauseButtonOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/playButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/playButtonOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/timeSliderBuffer.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/timeSliderCapLeft.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/timeSliderCapRight.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/timeSliderProgress.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/timeSliderRail.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/unmuteButton.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/controlbar/unmuteButtonOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/display/background.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/display/bufferIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/display/muteIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/display/playIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/dock/button.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/glow.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/playlist/item.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/playlist/itemOver.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/playlist/sliderCapBottom.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/playlist/sliderCapTop.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/playlist/sliderRail.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/playlist/sliderThumb.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/sharing/embedIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/sharing/embedScreen.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/sharing/shareIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/glow/sharing/shareScreen.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/assets/jwplayer/player.swf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/02/11/sobre-este-blog/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/02/12/cuanto-de-oop-tiene-javascript/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/02/14/groovy-closures-explicados-con-java/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/02/17/eventual-consistency/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/03/16/sobre-node-dot-js/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/03/21/asincronicidad-en-node-dot-js/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2012/05/15/eventual-consistency-parte-ii/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2013/08/17/agilesceptico/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/2013/09/30/fonetica-inglesa-monoptongos/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/archives/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/about/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/about/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/agile/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/agile/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/arquitectura/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/arquitectura/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/eventual-consistency/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/eventual-consistency/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/fonetica-ingles/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/fonetica-ingles/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/groovy/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/groovy/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/java/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/java/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/javascript/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/javascript/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/metodologias/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/metodologias/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/node-dot-js/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/node-dot-js/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/octopress/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/octopress/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/oop/atom.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/blog/categories/oop/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/favicon.ico" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/favicon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/bg_header.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/bird_32_gray.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/bird_32_gray_fail.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/code_bg.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/dotted-border.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/email.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/Monoptongos-Castellano.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/Monoptongos-Ingles.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/base-a.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/base-e.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/base-i.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/base-o.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/fonetica/base-u.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/line-tile.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/noise.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/rss.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/images/search.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/github.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/libs/jXHR.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/libs/jquery.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/libs/swfobject-dynamic.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/modernizr-2.0.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/octopress.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/pinboard.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/javascripts/twitter.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/robots.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/sitemap.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/_deploy/stylesheets/screen.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/public/atom.xml" afterPath="$PROJECT_DIR$/public/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/about/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/about/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/agile/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/agile/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/arquitectura/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/arquitectura/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/eventual-consistency/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/eventual-consistency/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/fonetica-ingles/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/fonetica-ingles/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/groovy/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/groovy/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/java/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/java/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/javascript/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/javascript/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/metodologias/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/metodologias/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/node-dot-js/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/node-dot-js/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/octopress/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/octopress/atom.xml" />
+      <change beforePath="$PROJECT_DIR$/public/blog/categories/oop/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/oop/atom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored mask="*.iml" />
@@ -28,7 +145,7 @@
       <file leaf-file-name="_config.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
+            <state relative-caret-position="52">
               <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
@@ -427,7 +544,7 @@
       <workItem from="1524741235091" duration="6259000" />
       <workItem from="1525252958405" duration="1738000" />
       <workItem from="1525255442167" duration="225000" />
-      <workItem from="1525255690467" duration="318000" />
+      <workItem from="1525255690467" duration="650000" />
     </task>
     <task id="LOCAL-00001" summary="2018 rebuild">
       <created>1524758840235</created>
@@ -457,11 +574,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525254179388</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="missing green class definition">
+      <created>1525256059519</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1525256059519</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8540000" />
+    <option name="totallyTimeSpent" value="8872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="878" extended-state="0" />
@@ -777,7 +901,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
+        <state relative-caret-position="52">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
