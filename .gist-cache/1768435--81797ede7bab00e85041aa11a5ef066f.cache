@@ -1,0 +1,54 @@
+var OOP = (function() {
+
+    var SLICE = Array.prototype.slice;
+
+    function extend(source) {
+        for (var prop in source) {   // enumerable properties
+            var value = source[prop];
+            // mark descriptor objects with type = 'descriptor'
+            if (value.type === 'descriptor') { 
+                Object.defineProperty(this, prop, value);
+            } else {
+                this[prop] = value;
+            }
+        }
+        return this;
+    }
+
+    function bind(func) {
+        var obj = this;
+        return function() {
+            return obj[func].apply(obj, SLICE.call(arguments));
+        };
+    }
+
+    function inherits(props) {
+        var Parent = this;
+        var Child = props.constructor || function() {};
+
+        Child.parent = Parent;
+        Child.prototype = Object.create(Parent.prototype, {
+            constructor: { value: Child, enumerable: false },
+            parent: { value: function(name) {
+                var obj = Parent.prototype[name];
+                return obj && obj.apply? obj.apply(this, SLICE.call(arguments, 1)) : obj;
+            }, enumerable: false}
+        });
+
+        delete props.constructor;  // Avoid copying constructor property
+        extend.call(Child.prototype, props);
+
+        return Child;
+    }
+
+    // Create OOP object by extending Object
+    return inherits.call(Object, {
+        augment: { type: 'descriptor', value: extend, enumerable: false },
+        extend: { type: 'descriptor', value: inherits, enumerable: false },
+        method: { type: 'descriptor', value: bind, enumerable: false }
+    });
+}());
+
+if (typeof exports !== 'undefined') { // CommonJS module support
+    exports = OOP;
+}

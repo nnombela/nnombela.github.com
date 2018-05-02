@@ -1,0 +1,20 @@
+function extend(dest, source) {
+    for (var prop in source) {   // enumerable properties
+        dest[prop] = source[prop];
+    }
+    return dest;
+}
+
+function inherits(Parent, props) {
+    var Child = props.constructor || function() {};
+    delete props.constructor;  // Avoid copying constructor property later
+
+    Child.parent = Parent;
+    Child.prototype = Object.create(Parent.prototype, {
+        constructor: { value: Child, enumerable: false }
+    });
+
+    extend(Child.prototype, props);
+
+    return Child;
+}

@@ -1,0 +1,13 @@
+<div class="highlight"><pre><span class="kd">static</span> <span class="n">Object</span> <span class="nf">forEach</span><span class="o">(</span><span class="n">Collection</span> <span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">collection</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">Closure</span> <span class="n">closure</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Context</span> <span class="n">args</span> <span class="o">=</span> <span class="n">closure</span><span class="o">.</span><span class="na">createArgs</span><span class="o">().</span>
+            <span class="n">add</span><span class="o">(&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">index</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;,</span> <span class="n">i</span><span class="o">).</span><span class="na">add</span><span class="o">(&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">it</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;,</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]);&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="n">closure</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">collection</span><span class="o">;</span>
+<span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</pre></div>

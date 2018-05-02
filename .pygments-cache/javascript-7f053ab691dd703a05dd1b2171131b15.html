@@ -1,0 +1,6 @@
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">sleepAsynch</span><span class="p">(</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">doResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">seconds</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>

@@ -1,0 +1,32 @@
+var Point = inherits(Object, {
+    constructor: function(x, y) {
+        this.x = x;
+        this.y = y;
+    },
+    // shared properties
+    desc : 'A single point',
+    // methods
+    toString: function () {
+        return '(' + this.x + ", " + this.y + ')';
+    }
+});
+
+var ColorPoint = inherits(Point, {
+    constructor: function(x, y , color) {
+        ColorPoint.parent.prototype.constructor.call(this, x, y);
+        this.color = color;
+    },
+    // shared properties
+    desc: 'A single point plus color',
+    // methods
+    toString: function() {
+        return this.color + " " + ColorPoint.parent.prototype.toString.call(this);
+    }
+});
+
+
+var p = new Point(3, 2);
+var cp = new ColorPoint(1, 2, "yellow");
+
+console.log(p.desc + ": " + p.toString());
+console.log(cp.desc + ": " + cp.toString());

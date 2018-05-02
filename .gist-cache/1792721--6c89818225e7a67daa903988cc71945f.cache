@@ -1,0 +1,38 @@
+var OOP = require('./OOP.js');
+
+var Point = OOP.extend({
+    constructor: function(x, y) {
+        this.x = x;
+        this.y = y;
+    },
+    desc : 'A single point',
+    toString: function () {
+        return '(' + this.x + ", " + this.y + ')';
+    }
+});
+
+// Now you can easily extend Point
+
+var ColorPoint = Point.extend({
+    constructor: function(x, y , color) {
+        //ColorPoint.parent.prototype.constructor.call(this, x, y);
+        this.parent('constructor', x, y);   // calling parent constructor
+        this.color = color;
+    },
+    desc: 'A single point plus color',
+    toString: function() {
+        // return this.color + " " + ColorPoint.parent.prototype.toString.call(this)
+        return this.color + " " + this.parent('toString');   // calling parent method
+    },
+    printLog: function() {
+        console.log('LOG: ' + this.toString());
+    }
+});
+
+var p = new Point(3, 2);
+var cp = new ColorPoint(1, 2, "yellow");
+
+console.log(p.desc + ": " + p.toString());
+console.log(cp.desc + ": " + cp.toString());
+
+setTimeout(cp.method('printLog'), 1000);

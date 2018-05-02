@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: about | NN.blog.last()]]></title>
+  <link href="http://nnombela.github.com/blog/categories/about/atom.xml" rel="self"/>
+  <link href="http://nnombela.github.com/"/>
+  <updated>2018-05-02T11:59:56+02:00</updated>
+  <id>http://nnombela.github.com/</id>
+  <author>
+    <name><![CDATA[Nicolas Nombela]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sobre este blog]]></title>
+    <link href="http://nnombela.github.com/blog/2012/02/11/sobre-este-blog/"/>
+    <updated>2012-02-11T19:10:00+01:00</updated>
+    <id>http://nnombela.github.com/blog/2012/02/11/sobre-este-blog</id>
+    <content type="html"><![CDATA[<h2>¿Por qué <a href="http://octopress.org/">Octopress</a> ?</h2>
+
+<p>Después de probar varias opciones online, finalmente me he decidido a utilizar Octopress, por varias razones</p>
+
+<ul>
+<li>Es un blog de publicación estática con total control sobre lo que aparece, como tiene que ser&hellip;</li>
+<li>Puede alojarse en <a href="http://github.com">github</a> gratuítamente y la carga de páginas es muy rápida, como ventaja añadida todo el blog está versionado.</li>
+<li>El <em>theme</em> por defecto es muy simple, limpio y fácilmente modificable.</li>
+<li>Es un blog de programadores para programadores y se nota. Está hecho en Ruby, qeu no conozco bien pero es fácil de utilizar.</li>
+<li>Es muy fácil incluir código en las entradas y se integra con <code>github gist</code> (trozos de código) estupendamente.</li>
+<li>Es posible trabajar offline, viendo rápidamente los cambios y utilizando mi IDE favorito, cuando estás conforme haces un <code>push</code> a github</li>
+<li>Utiliza un lenguaje de marcado <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> (configurable) en vez de uno
+de estos asistentes de edición que siempre me funcionan mal, para mi es más cómodo.</li>
+<li>Tiene un montón de plugins en código abierto y si no te sirven los modificas o te haces uno.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
